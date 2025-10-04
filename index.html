@@ -396,7 +396,8 @@
             return `
                 <div class="contact-form-card bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-sky-light max-w-xl mx-auto">
                     <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Connect With Us</h1>
-                    <p class="text-gray-600 mb-6 text-center">We'd love to hear from you. Send your message directly to Hreeshyat's email.</p>
+                    <!-- UPDATED TEXT: Hreeshyat's email -> our official email -->
+                    <p class="text-gray-600 mb-6 text-center">We'd love to hear from you. Send your message directly to our official email.</p>
 
                     <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
                         <div class="space-y-2">
@@ -452,7 +453,8 @@
             const recipient = 'lalitachoudhuri18@gmail.com';
 
             // Construct the mailto link
-            const bodyContent = `Dear Hreeshyat,\n\n${message}\n\n---\nSender: ${name} (${email})`;
+            // NOTE: I'm keeping the body content personalized, but the general text is updated in the UI.
+            const bodyContent = `Dear Ink & Obsidian Publications Team,\n\n${message}\n\n---\nSender: ${name} (${email})`;
             const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
 
             // Open the user's default email client
@@ -728,3 +730,4 @@
     </script>
 </body>
 </html>
+
