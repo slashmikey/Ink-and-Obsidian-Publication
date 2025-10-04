@@ -280,17 +280,7 @@
             tags: bookTags
         }];
 
-        // Populate placeholders up to 24 books (6 per row, 4 rows)
-        while (booksData.length < 24) {
-            booksData.push({
-                id: booksData.length + 1,
-                title: `Awaiting New Work (${booksData.length + 1})`,
-                coverUrl: "https://placehold.co/150x225/f0f9ff/101010?text=Awaiting+New+Work",
-                pdfLink: "#",
-                description: "This slot is reserved for a future publication from Ink & Obsidian. Stay tuned!",
-                placeholder: true
-            });
-        }
+        // Removed the loop to populate 24 placeholders.
 
         // --- Utility Functions ---
 
@@ -318,7 +308,7 @@
                 </svg>
             `;
         }
-
+        
         /**
          * Simple SVG for the Mail/Send icon (Lucide style)
          */
@@ -370,6 +360,41 @@
             if (isMobileMenuOpen) {
                 toggleMobileMenu();
             }
+        }
+        
+        /**
+         * Handles the form submission by constructing a mailto link.
+         * @param {Event} event - The form submission event.
+         */
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const subject = form.subject.value;
+            const message = form.message.value;
+            const messageDiv = document.getElementById('contact-message');
+
+            // The target Gmail address
+            const recipient = 'lalitachoudhuri18@gmail.com';
+
+            // Construct the mailto link
+            const bodyContent = `Dear Ink & Obsidian Publications Team,\n\n${message}\n\n---\nSender: ${name} (${email})`;
+            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
+
+            // Open the user's default email client
+            window.location.href = mailtoLink;
+
+            // Display a non-alert message
+            messageDiv.textContent = 'Your message is being prepared in your email client. Please click "Send" there to complete the action.';
+            messageDiv.className = 'mt-4 p-3 bg-sky-light text-sky-accent rounded-lg text-center block';
+
+            // Optionally clear the form after a short delay
+            setTimeout(() => {
+                form.reset();
+                messageDiv.textContent = '';
+                messageDiv.className = 'mt-4 p-3 rounded-lg text-center hidden';
+            }, 5000);
         }
 
 
@@ -464,41 +489,6 @@
             `;
         }
 
-        /**
-         * Handles the form submission by constructing a mailto link.
-         * @param {Event} event - The form submission event.
-         */
-        function handleContactSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const name = form.name.value;
-            const email = form.email.value;
-            const subject = form.subject.value;
-            const message = form.message.value;
-            const messageDiv = document.getElementById('contact-message');
-
-            // The target Gmail address
-            const recipient = 'lalitachoudhuri18@gmail.com';
-
-            // Construct the mailto link
-            const bodyContent = `Dear Ink & Obsidian Publications Team,\n\n${message}\n\n---\nSender: ${name} (${email})`;
-            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
-
-            // Open the user's default email client
-            window.location.href = mailtoLink;
-
-            // Display a non-alert message
-            messageDiv.textContent = 'Your message is being prepared in your email client. Please click "Send" there to complete the action.';
-            messageDiv.className = 'mt-4 p-3 bg-sky-light text-sky-accent rounded-lg text-center block';
-
-            // Optionally clear the form after a short delay
-            setTimeout(() => {
-                form.reset();
-                messageDiv.textContent = '';
-                messageDiv.className = 'mt-4 p-3 rounded-lg text-center hidden';
-            }, 5000);
-        }
-
         function renderBookDetail(bookId) {
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
@@ -549,7 +539,8 @@
                             </div>
                             
                             ${!book.placeholder ? `
-                                <div class="mt-8">
+                                <div class="mt-8 flex items-center space-x-4 relative">
+                                    <!-- 1. Get It Button -->
                                     <a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
                                         class="inline-flex items-center bg-sky-accent text-white py-3 px-6 rounded-lg font-bold text-lg hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05]">
                                         ${getDownloadIcon()}
@@ -602,7 +593,7 @@
                     </div>
                 </div>
 
-                <!-- Book Grid (6 books per row) -->
+                <!-- Book Grid (6 books per row - adjusted to automatically fit content) -->
                 <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                     ${bookCards}
                 </div>
@@ -618,15 +609,16 @@
             let results;
 
             if (lowercaseQuery.length >= 3) {
+                // Filter actual books by title starting with the query
                 results = booksData.filter(book =>
-                    book.title.toLowerCase().startsWith(lowercaseQuery)
+                    !book.placeholder && book.title.toLowerCase().startsWith(lowercaseQuery)
                 );
             } else if (lowercaseQuery.length === 0) {
-                results = booksData; // Show all if search is empty
+                // Show all actual books if search is empty
+                results = booksData.filter(book => !book.placeholder);
             } else {
                 // Show a message or just keep the current list until 3 chars are typed
-                results = booksData.filter(book => !book.placeholder); // Only show actual books if not enough chars are typed
-                // Or you could show all books: results = booksData;
+                results = booksData.filter(book => !book.placeholder);
             }
 
             const bookGrid = document.getElementById('book-grid');
