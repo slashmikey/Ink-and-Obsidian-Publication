@@ -228,7 +228,9 @@
         let isMobileMenuOpen = false; // NEW: Mobile menu state
         
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
-        const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy"; // ADDED: Shared genre constant
+        const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy";
+        // ADDED: Shared tags constant
+        const bookTags = "brutal crimes, mass killings, vulgar language, 16+, savage vengeance, and psychological torment";
 
 
         const booksData = [{
@@ -239,7 +241,8 @@
             description: bookDescription,
             placeholder: false,
             pageCount: 81,
-            genre: bookGenre // ADDED
+            genre: bookGenre,
+            tags: bookTags // ADDED
         }, {
             id: 2,
             title: "Silent Echoes from Dark World (Vol-1) EPUB/RTF Version",
@@ -248,7 +251,8 @@
             description: bookDescription,
             placeholder: false,
             pageCount: 75,
-            genre: bookGenre // ADDED
+            genre: bookGenre,
+            tags: bookTags // ADDED
         }];
 
         // Populate placeholders up to 24 books (6 per row, 4 rows)
@@ -506,10 +510,17 @@
                                     </p>
                                 ` : ''}
 
-                                <!-- ADDED: Display Genre -->
+                                <!-- Display Genre -->
                                 ${book.genre ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Genre: <span class="text-sky-accent">${book.genre}</span>
+                                    </p>
+                                ` : ''}
+                                
+                                <!-- ADDED: Display Tags -->
+                                ${book.tags ? `
+                                    <p class="text-lg font-semibold text-obsidian">
+                                        Tags: <span class="text-sky-accent">${book.tags}</span>
                                     </p>
                                 ` : ''}
                             </div>
@@ -730,4 +741,3 @@
     </script>
 </body>
 </html>
-
