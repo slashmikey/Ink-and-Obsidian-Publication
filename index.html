@@ -15,6 +15,7 @@
                         'sky-light': '#f0f9ff', // A very light sky blue for subtle accents
                         'sky-accent': '#0ea5e9', // Sky 500 for buttons/links
                         'obsidian': '#1f2937',  // Dark grey for text
+                        'dark-bg': '#121212', // Deep dark background (No longer used, but kept in config for reference)
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -44,17 +45,6 @@
             transform: translateY(0);
         }
 
-        .search-container {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-        }
-
-        .search-container.active {
-            max-height: 100px; /* Adjust based on content height */
-            padding-top: 1rem;
-        }
-
         /* Navigation Link Hover/Active Styling */
         .nav-link, .mobile-nav-link {
             position: relative;
@@ -62,7 +52,6 @@
             transition: color 0.3s;
         }
         
-        /* ADDED: Explicitly set the text color for active navigation links */
         .nav-link.active-nav, 
         .mobile-nav-link.active-nav {
             color: theme('colors.sky-accent'); 
@@ -104,10 +93,48 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
-        .input-focus:focus {
-            border-color: theme('colors.sky-accent');
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3); /* Custom ring color */
-            outline: none;
+        /* --- ADVANCED SEARCH ANIMATIONS --- */
+
+        /* 1. Rainbow Glow Keyframe (for border) */
+        @keyframes rainbow-glow {
+            0% { box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7); border-color: rgba(255, 0, 0, 0.5); }
+            14% { box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.7); border-color: rgba(255, 165, 0, 0.5); }
+            28% { box-shadow: 0 0 10px 2px rgba(255, 255, 0, 0.7); border-color: rgba(255, 255, 0, 0.5); }
+            42% { box-shadow: 0 0 10px 2px rgba(0, 128, 0, 0.7); border-color: rgba(0, 128, 0, 0.5); }
+            56% { box-shadow: 0 0 10px 2px rgba(0, 0, 255, 0.7); border-color: rgba(0, 0, 255, 0.5); }
+            70% { box-shadow: 0 0 10px 2px rgba(75, 0, 130, 0.7); border-color: rgba(75, 0, 130, 0.5); }
+            84% { box-shadow: 0 0 10px 2px rgba(238, 130, 238, 0.7); border-color: rgba(238, 130, 238, 0.5); }
+            100% { box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7); border-color: rgba(255, 0, 0, 0.5); }
+        }
+
+        /* 2. Mirror Shine Keyframe (Applied to the Search Icon) */
+        @keyframes mirror-shine {
+            0%, 100% { 
+                filter: brightness(1) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
+                transform: scale(1);
+            }
+            50% { 
+                filter: brightness(1.5) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+                transform: scale(1.05); /* Subtle pulse */
+            }
+        }
+
+        /* 3. Helper Class to apply Rainbow Glow to the input */
+        #book-search-input.rainbow-active {
+            animation: rainbow-glow 6s linear infinite; /* Slow, continuous loop */
+            border: 4px solid transparent !important; /* Override standard border */
+            outline: none; /* Remove default blue focus outline */
+            box-shadow: none; /* The animation provides the shadow */
+        }
+        
+        /* 4. Helper Class to apply Mirror Shine to the button */
+        .search-icon-shining {
+            animation: mirror-shine 3s ease-in-out infinite;
+        }
+
+        /* 5. Ensure the input boundary is fully rounded when expanded */
+        #book-search-input {
+            padding-right: 3.5rem !important;
         }
     </style>
 </head>
@@ -127,27 +154,26 @@
                 <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publication</span>
             </a>
 
-            <!-- Mobile Menu Toggle Button (Hamburger) -->
-            <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-
-
-            <!-- Navigation Links (Desktop) -->
-            <!-- ADDED 'hidden' class to hide on mobile/tablet -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
-                <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
-                <!-- UPDATED TEXT: The Author -> The Visionary -->
-                <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
-                <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
-            </nav>
-
+            <!-- Right Side Actions (Mobile/Desktop) -->
+            <div class="flex items-center space-x-3">
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
+                    <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
+                    <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
+                    <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
+                </nav>
+                
+                <!-- Mobile Menu Toggle Button (Hamburger) -->
+                <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
-    
+
     <!-- Mobile Sidebar Menu Overlay -->
     <div id="mobile-menu-overlay" 
          class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden mobile-menu-overlay opacity-0 md:hidden" 
@@ -225,11 +251,10 @@
         let currentPage = 'home';
         let currentBookId = null;
         let isSearchVisible = false;
-        let isMobileMenuOpen = false; // NEW: Mobile menu state
+        let isMobileMenuOpen = false; 
         
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
         const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy";
-        // ADDED: Shared tags constant
         const bookTags = "brutal crimes, mass killings, vulgar language, 16+, savage vengeance, and psychological torment";
 
 
@@ -242,7 +267,7 @@
             placeholder: false,
             pageCount: 81,
             genre: bookGenre,
-            tags: bookTags // ADDED
+            tags: bookTags 
         }, {
             id: 2,
             title: "Silent Echoes from Dark World (Vol-1) EPUB/RTF Version",
@@ -252,7 +277,7 @@
             placeholder: false,
             pageCount: 75,
             genre: bookGenre,
-            tags: bookTags // ADDED
+            tags: bookTags
         }];
 
         // Populate placeholders up to 24 books (6 per row, 4 rows)
@@ -349,7 +374,6 @@
 
 
         // --- Page Content Rendering Functions ---
-        // Retained for subsequent navigation
         function renderHome() {
             return `
                 <div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
@@ -457,7 +481,6 @@
             const recipient = 'lalitachoudhuri18@gmail.com';
 
             // Construct the mailto link
-            // NOTE: I'm keeping the body content personalized, but the general text is updated in the UI.
             const bodyContent = `Dear Ink & Obsidian Publications Team,\n\n${message}\n\n---\nSender: ${name} (${email})`;
             const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
 
@@ -517,7 +540,7 @@
                                     </p>
                                 ` : ''}
                                 
-                                <!-- ADDED: Display Tags -->
+                                <!-- Display Tags -->
                                 ${book.tags ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Tags: <span class="text-sky-accent">${book.tags}</span>
@@ -553,23 +576,28 @@
                 </div>
             `).join('');
 
+            // NEW ADVANCED SEARCH BAR STRUCTURE
             return `
                 <h1 class="text-4xl font-black mb-4 text-sky-accent text-center">My Books</h1>
 
-                <!-- Search Bar Container -->
+                <!-- Search Bar Container (Flex for centering, max-w for desktop limit) -->
                 <div class="flex justify-center mb-10">
-                    <div class="w-full max-w-xl">
-                        <!-- Search Icon Button -->
-                        <button onclick="toggleSearch()" id="search-toggle-btn"
-                            class="p-3 bg-sky-accent text-white rounded-full mx-auto block hover:bg-sky-700 transition duration-300 transform hover:scale-105 shadow-lg shadow-sky-accent/20">
-                            ${getSearchIcon()}
-                        </button>
-
-                        <!-- Search Input Area -->
-                        <div id="search-bar-container" class="search-container">
+                    <div class="max-w-xl w-full flex justify-center">
+                        <!-- Dynamic Search Wrapper -->
+                        <div id="search-bar-wrapper" class="relative h-12 w-12 transition-all duration-500 ease-in-out">
+                            
+                            <!-- Input Field: Absolute positioning to expand left from the button -->
                             <input type="text" id="book-search-input" oninput="filterBooks(this.value)"
-                                class="w-full p-3 border-2 border-sky-light rounded-xl text-lg input-focus transition duration-300"
-                                placeholder="Start typing the book title (e.g., 'Sil')">
+                                class="absolute right-0 h-full p-3 pl-6 pr-16 border-2 border-sky-light rounded-full text-lg opacity-0 w-0 input-focus 
+                                       transition-all duration-500 ease-in-out bg-white shadow-xl"
+                                placeholder="Search titles...">
+                            
+                            <!-- Toggle Search Button: Fixed on the right edge (z-index for stacking and pushing) -->
+                            <button onclick="toggleSearch()" id="search-toggle-btn" 
+                                class="absolute right-0 top-0 p-3 bg-sky-accent text-white rounded-full transition duration-300 transform hover:scale-105 shadow-lg shadow-sky-accent/20 z-10">
+                                ${getSearchIcon()}
+                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -619,25 +647,49 @@
         }
 
         /**
-         * Toggles the visibility of the search bar input with a smooth transition.
+         * Toggles the visibility and expansion of the advanced search bar.
          */
         function toggleSearch() {
-            const container = document.getElementById('search-bar-container');
+            const wrapper = document.getElementById('search-bar-wrapper');
             const input = document.getElementById('book-search-input');
             const button = document.getElementById('search-toggle-btn');
+            
+            // Define expanded width based on screen size for responsiveness
+            let expandedWidth;
+            if (window.innerWidth >= 1024) {
+                expandedWidth = '30rem'; // Desktop/large
+            } else if (window.innerWidth >= 640) {
+                expandedWidth = '20rem'; // Tablet/medium
+            } else {
+                expandedWidth = '90vw'; // Mobile/small (90% of viewport width)
+            }
+
 
             isSearchVisible = !isSearchVisible;
 
             if (isSearchVisible) {
-                container.classList.add('active');
+                // Expand and show
+                wrapper.style.width = expandedWidth;
+                input.classList.remove('w-0', 'opacity-0');
+                input.classList.add('w-full', 'opacity-100', 'rainbow-active'); 
+                button.classList.add('search-icon-shining'); 
+                
                 setTimeout(() => {
                     input.focus();
-                }, 400); // Focus after transition
+                }, 500); // Focus after transition
             } else {
-                container.classList.remove('active');
-                input.value = '';
-                filterBooks(''); // Reset filter when search bar is hidden
-                input.blur();
+                // Collapse and hide
+                input.classList.remove('w-full', 'opacity-100', 'rainbow-active');
+                button.classList.remove('search-icon-shining');
+                
+                // Wait briefly for the input's opacity/width transition to start before collapsing the wrapper
+                setTimeout(() => {
+                    wrapper.style.width = '3rem'; // Collapse back to button size
+                    input.classList.add('w-0', 'opacity-0');
+                    input.value = '';
+                    filterBooks(''); // Reset filter
+                    input.blur();
+                }, 400); 
             }
         }
 
@@ -678,7 +730,7 @@
                         break;
                     case 'books':
                         htmlContent = renderBooks();
-                        // Reset search visibility when moving to books page
+                        // Reset search visibility state when moving to books page
                         isSearchVisible = false;
                         break;
                     case 'book-detail':
@@ -708,10 +760,10 @@
 
                 // Special handling for My Books search bar initialization
                 if (page === 'books') {
-                    const searchContainer = document.getElementById('search-bar-container');
-                    // Ensure search bar is hidden on initial load of the books page
-                    if (searchContainer) {
-                        searchContainer.classList.remove('active');
+                    const searchWrapper = document.getElementById('search-bar-wrapper');
+                    // Ensure search wrapper is collapsed on initial load of the books page
+                    if (searchWrapper) {
+                         searchWrapper.style.width = '3rem';
                     }
                 }
 
@@ -722,8 +774,7 @@
 
         // Initialize the page on load
         window.onload = () => {
-            // The 'home' content is now pre-rendered in the HTML.
-            // We just ensure the navigation bar reflects 'home' as active.
+            // 1. The 'home' content is pre-rendered. Ensure nav reflects 'home' as active.
             const navLinksDesktop = document.querySelectorAll('.nav-link');
             const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
             const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
@@ -741,3 +792,4 @@
     </script>
 </body>
 </html>
+
