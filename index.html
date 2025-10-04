@@ -55,13 +55,20 @@
             padding-top: 1rem;
         }
 
-        .nav-link {
+        /* Navigation Link Hover/Active Styling */
+        .nav-link, .mobile-nav-link {
             position: relative;
             padding-bottom: 2px;
             transition: color 0.3s;
         }
+        
+        /* ADDED: Explicitly set the text color for active navigation links */
+        .nav-link.active-nav, 
+        .mobile-nav-link.active-nav {
+            color: theme('colors.sky-accent'); 
+        }
 
-        .nav-link::after {
+        .nav-link::after, .mobile-nav-link::after {
             content: '';
             position: absolute;
             left: 0;
@@ -73,8 +80,18 @@
         }
 
         .nav-link:hover::after,
-        .nav-link.active-nav::after {
+        .nav-link.active-nav::after,
+        .mobile-nav-link:hover::after,
+        .mobile-nav-link.active-nav::after {
             width: 100%;
+        }
+
+        /* Mobile Menu Transitions */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
         }
 
         .book-card, .contact-form-card, .bio-card {
@@ -110,7 +127,16 @@
                 <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publication</span>
             </a>
 
+            <!-- Mobile Menu Toggle Button (Hamburger) -->
+            <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+
+
             <!-- Navigation Links (Desktop) -->
+            <!-- ADDED 'hidden' class to hide on mobile/tablet -->
             <nav class="hidden md:flex space-x-8">
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
@@ -118,9 +144,37 @@
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
             </nav>
 
-            <!-- Mobile Menu Button (Optional, omitted for brevity in single-file mandate) -->
         </div>
     </header>
+    
+    <!-- Mobile Sidebar Menu Overlay -->
+    <div id="mobile-menu-overlay" 
+         class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden mobile-menu-overlay opacity-0 md:hidden" 
+         onclick="toggleMobileMenu()">
+    </div>
+    
+    <!-- Mobile Sidebar Menu (Off-Canvas) -->
+    <div id="mobile-menu" 
+         class="fixed top-0 right-0 w-64 h-full bg-white shadow-2xl z-30 transform translate-x-full mobile-menu md:hidden">
+        
+        <!-- Close Button -->
+        <div class="p-4 flex justify-end border-b border-sky-light">
+            <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex flex-col p-4 space-y-2">
+            <!-- Used handleMobileNav to close the menu upon click -->
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="home" onclick="handleMobileNav('home')">Home</a>
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="books" onclick="handleMobileNav('books')">My Books</a>
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Author</a>
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="contact" onclick="handleMobileNav('contact')">Contact Us</a>
+        </nav>
+    </div>
 
     <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY -->
     <main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -157,7 +211,7 @@
                 © 2025 Ink & Obsidian Publications. All rights reserved.
             </p>
             <p class="text-xs text-gray-500 max-w-2xl mx-auto">
-                All works published on this site are the original creations of Hreeshyat Talukdar (Ink & Obsidian Publications). Unauthorized reproduction is prohibited.
+                All works published on this site are the original creations of Ink & Obsidian Publications. Unauthorized reproduction is prohibited.
             </p>
         </div>
     </footer>
@@ -169,8 +223,10 @@
         let currentPage = 'home';
         let currentBookId = null;
         let isSearchVisible = false;
+        let isMobileMenuOpen = false; // NEW: Mobile menu state
         
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
+        const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy"; // ADDED: Shared genre constant
 
 
         const booksData = [{
@@ -179,15 +235,18 @@
             coverUrl: "https://i.postimg.cc/JzZkk9Gy/1.jpg",
             pdfLink: "https://drive.google.com/file/d/1hHp-STRAZrk6bGdTBNE1mw80nIfRKOEJ/view?usp=sharing",
             description: bookDescription,
-            placeholder: false
+            placeholder: false,
+            pageCount: 81,
+            genre: bookGenre // ADDED
         }, {
             id: 2,
             title: "Silent Echoes from Dark World (Vol-1) EPUB/RTF Version",
-            // UPDATED to the new image link for the second book
             coverUrl: "https://i.postimg.cc/SQrbGpZW/1.jpg", 
             pdfLink: "https://drive.google.com/file/d/1FS1oNKghAIbV2f75PYk-0X2SRlb391NI/view?usp=sharing",
             description: bookDescription,
-            placeholder: false
+            placeholder: false,
+            pageCount: 75,
+            genre: bookGenre // ADDED
         }];
 
         // Populate placeholders up to 24 books (6 per row, 4 rows)
@@ -239,6 +298,47 @@
                     <path d="M12 12 19 5"></path>
                 </svg>
             `;
+        }
+        
+        /**
+         * Toggles the visibility of the mobile menu sidebar and overlay.
+         */
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('mobile-menu-overlay');
+            const body = document.body;
+
+            isMobileMenuOpen = !isMobileMenuOpen;
+
+            if (isMobileMenuOpen) {
+                // Show Menu
+                overlay.classList.remove('hidden', 'opacity-0');
+                overlay.classList.add('opacity-100');
+                menu.classList.remove('translate-x-full');
+                // Prevent background scrolling
+                body.style.overflow = 'hidden';
+            } else {
+                // Hide Menu
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+                menu.classList.add('translate-x-full');
+                // Re-enable background scrolling after transition
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                    body.style.overflow = '';
+                }, 300); // Match CSS transition duration
+            }
+        }
+
+        /**
+         * Handles mobile navigation, calls navigate(), and closes the menu.
+         */
+        function handleMobileNav(page) {
+            navigate(page);
+            // Close the menu after navigation
+            if (isMobileMenuOpen) {
+                toggleMobileMenu();
+            }
         }
 
 
@@ -394,6 +494,22 @@
                                 <p>${book.description}</p>
                             </div>
 
+                            <div class="mt-4 space-y-1">
+                                <!-- Display Total Pages -->
+                                ${book.pageCount ? `
+                                    <p class="text-lg font-semibold text-obsidian">
+                                        Total Pages: <span class="text-sky-accent">${book.pageCount}</span>
+                                    </p>
+                                ` : ''}
+
+                                <!-- ADDED: Display Genre -->
+                                ${book.genre ? `
+                                    <p class="text-lg font-semibold text-obsidian">
+                                        Genre: <span class="text-sky-accent">${book.genre}</span>
+                                    </p>
+                                ` : ''}
+                            </div>
+                            
                             ${!book.placeholder ? `
                                 <div class="mt-8">
                                     <a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
@@ -520,7 +636,9 @@
          */
         function navigate(page, bookId = null) {
             const container = document.getElementById('content-container');
-            const navLinks = document.querySelectorAll('.nav-link');
+            const navLinksDesktop = document.querySelectorAll('.nav-link');
+            const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
+            const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
 
             // 1. Start Exit Animation
             container.classList.remove('active');
@@ -561,10 +679,11 @@
                 container.classList.add('active');
 
                 // 5. Update Navigation Styling
-                navLinks.forEach(link => {
+                allNavLinks.forEach(link => {
                     // Determine the active link key (for book-detail, the active link is 'books')
                     const activeKey = (page === 'book-detail' ? 'books' : page);
 
+                    // Check both desktop and mobile links
                     if (link.getAttribute('data-page') === activeKey) {
                         link.classList.add('active-nav');
                     } else {
@@ -590,8 +709,11 @@
         window.onload = () => {
             // The 'home' content is now pre-rendered in the HTML.
             // We just ensure the navigation bar reflects 'home' as active.
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
+            const navLinksDesktop = document.querySelectorAll('.nav-link');
+            const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
+            const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
+            
+            allNavLinks.forEach(link => {
                 if (link.getAttribute('data-page') === 'home') {
                     link.classList.add('active-nav');
                 } else {
