@@ -253,9 +253,15 @@
         let isSearchVisible = false;
         let isMobileMenuOpen = false; 
         
+        // --- Shared Data for Silent Echoes (Book 1 & 2) ---
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
         const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy";
         const bookTags = "brutal crimes, mass killings, vulgar language, 16+, savage vengeance, and psychological torment";
+
+        // --- Data for New Book (Book 3 & 4) ---
+        const book3Description = "Welcome to Erotica: Unplugged – Not a Love Bite, a journey through desire, chaos, and the darker edges of the human psyche. This is not a love story. It is a story of obsession, betrayal, lust, and ruin — a mirror reflecting the raw, unfiltered impulses that simmer beneath the surface of our polished lives. This book is crafted strictly for readers aged eighteen and above. Within these pages lie explicit themes, intense dialogue, and mature reflections on desire and destruction — a provocative, psychological, and erotic journey that refuses to flinch from the truth of human impulses.";
+        const book3Genre = "Dark Fantasy, Thriller, Psychological, Adult Drama";
+        const book3Tags = "toxic relationship, sex, tobacco use, alcohol, slang words, metaphorical, dark fantasy, psychological thriller";
 
 
         const booksData = [{
@@ -278,6 +284,28 @@
             pageCount: 75,
             genre: bookGenre,
             tags: bookTags
+        }, {
+            // --- Book 3: Erotica Paperback ---
+            id: 3,
+            title: "Erotica Unplugged: Not A Love Bite (Paperback Version)",
+            coverUrl: "https://i.postimg.cc/GtX9CGTN/1c.png",
+            pdfLink: "https://drive.google.com/file/d/10MT4qSzWpq_isO3PXaQlZsQnF18vQbsn/view?usp=sharing",
+            description: book3Description,
+            placeholder: false,
+            pageCount: 134,
+            genre: book3Genre,
+            tags: book3Tags
+        }, {
+            // --- NEW BOOK ENTRY (Book 4: Erotica EPUB/RTF) ---
+            id: 4,
+            title: "Erotica Unplugged: Not A Love Bite (EUPB/RTF Version)",
+            coverUrl: "https://i.postimg.cc/bNPKX4zy/1.png", // New link
+            pdfLink: "https://drive.google.com/file/d/1aIEP7Z0vpWBzCilrHEPjZdqdL3R_MmRU/view?usp=sharing", // New link
+            description: book3Description,
+            placeholder: false,
+            pageCount: 119, // New page count
+            genre: book3Genre,
+            tags: book3Tags
         }];
 
         // Removed the loop to populate 24 placeholders.
@@ -503,7 +531,7 @@
                     <div class="flex flex-col lg:flex-row gap-10">
                         <!-- Book Cover (Small Size) -->
                         <div class="flex-shrink-0 mx-auto lg:mx-0">
-                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Silent+Echoes';" loading="lazy">
+                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
                         </div>
 
                         <!-- Book Details -->
@@ -784,4 +812,5 @@
     </script>
 </body>
 </html>
+
 
