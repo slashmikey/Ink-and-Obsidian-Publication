@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ink and Obsidian Publications</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind to use Inter font and define custom colors -->
-    <script>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and define custom colors --><script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -140,13 +138,10 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header / Navigation Bar -->
-    <header class="bg-sky-light sticky top-0 z-10 border-b border-sky-light/80 shadow-sm">
+    <!-- Header / Navigation Bar --><header class="bg-sky-light sticky top-0 z-10 border-b border-sky-light/80 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Logo & Title -->
-            <a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01]">
-                <!-- Logo Source updated to external link -->
-                <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
+            <!-- Logo & Title --><a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01]">
+                <!-- Logo Source updated to external link --><img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                      alt="Ink and Obsidian Logo" 
                      class="h-8 w-8 object-contain shadow-md" 
                      onerror="this.onerror=null;this.src='https://placehold.co/32x32/1f2937/ffffff?text=I&O';" 
@@ -154,18 +149,15 @@
                 <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publications</span>
             </a>
 
-            <!-- Right Side Actions (Mobile/Desktop) -->
-            <div class="flex items-center space-x-3">
-                <!-- Navigation Links (Desktop) -->
-                <nav class="hidden md:flex space-x-8 items-center">
+            <!-- Right Side Actions (Mobile/Desktop) --><div class="flex items-center space-x-3">
+                <!-- Navigation Links (Desktop) --><nav class="hidden md:flex space-x-8 items-center">
                     <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
                     <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
                     <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
                     <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
                 </nav>
                 
-                <!-- Mobile Menu Toggle Button (Hamburger) -->
-                <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
+                <!-- Mobile Menu Toggle Button (Hamburger) --><button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
@@ -174,18 +166,15 @@
         </div>
     </header>
 
-    <!-- Mobile Sidebar Menu Overlay -->
-    <div id="mobile-menu-overlay" 
+    <!-- Mobile Sidebar Menu Overlay --><div id="mobile-menu-overlay" 
          class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden mobile-menu-overlay opacity-0 md:hidden" 
          onclick="toggleMobileMenu()">
     </div>
     
-    <!-- Mobile Sidebar Menu (Off-Canvas) -->
-    <div id="mobile-menu" 
+    <!-- Mobile Sidebar Menu (Off-Canvas) --><div id="mobile-menu" 
          class="fixed top-0 right-0 w-64 h-full bg-white shadow-2xl z-30 transform translate-x-full mobile-menu md:hidden">
         
-        <!-- Close Button -->
-        <div class="p-4 flex justify-end border-b border-sky-light">
+        <!-- Close Button --><div class="p-4 flex justify-end border-b border-sky-light">
             <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
@@ -193,30 +182,24 @@
             </button>
         </div>
 
-        <!-- Navigation Links -->
-        <nav class="flex flex-col p-4 space-y-2">
-            <!-- Used handleMobileNav to close the menu upon click -->
-            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="home" onclick="handleMobileNav('home')">Home</a>
+        <!-- Navigation Links --><nav class="flex flex-col p-4 space-y-2">
+            <!-- Used handleMobileNav to close the menu upon click --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="home" onclick="handleMobileNav('home')">Home</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="books" onclick="handleMobileNav('books')">My Books</a>
-            <!-- UPDATED TEXT: The Author -> The Visionary -->
-            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Visionary</a>
+            <!-- UPDATED TEXT: The Author -> The Visionary --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Visionary</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="contact" onclick="handleMobileNav('contact')">Contact Us</a>
         </nav>
     </div>
 
-    <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY -->
-    <main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <!-- START: Initial Home Page Content (Pre-rendered) -->
-        <div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
-            <!-- Logo added here, centered and larger (h-32 w-32) -->
-            <div class="flex justify-center mb-6">
+    <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY --><main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- START: Initial Home Page Content (Pre-rendered) --><div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
+            <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
                 <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                      alt="Ink and Obsidian Logo" 
                      class="h-32 w-32 object-contain" 
                      onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
             </div>
             
-            <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian</h1>
+            <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian Publications</h1>
             <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p>
                     <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
@@ -229,11 +212,9 @@
                 </p>
             </div>
         </div>
-        <!-- END: Initial Home Page Content -->
-    </main>
+        <!-- END: Initial Home Page Content --></main>
 
-    <!-- Footer -->
-    <footer class="bg-sky-light border-t border-sky-light/80 text-center py-6 mt-auto">
+    <!-- Footer --><footer class="bg-sky-light border-t border-sky-light/80 text-center py-6 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p class="text-sm font-semibold text-obsidian mb-2">
                 © 2025 Ink & Obsidian Publications. All rights reserved.
@@ -244,8 +225,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
-    <script>
+    <!-- JavaScript Logic --><script>
         // --- Core Data & State Management ---
 
         let currentPage = 'home';
@@ -262,6 +242,11 @@
         const book3Description = "Welcome to Erotica: Unplugged – Not a Love Bite, a journey through desire, chaos, and the darker edges of the human psyche. This is not a love story. It is a story of obsession, betrayal, lust, and ruin — a mirror reflecting the raw, unfiltered impulses that simmer beneath the surface of our polished lives. This book is crafted strictly for readers aged eighteen and above. Within these pages lie explicit themes, intense dialogue, and mature reflections on desire and destruction — a provocative, psychological, and erotic journey that refuses to flinch from the truth of human impulses.";
         const book3Genre = "Dark Fantasy, Thriller, Psychological, Adult Drama";
         const book3Tags = "toxic relationship, sex, tobacco use, alcohol, slang words, metaphorical, dark fantasy, psychological thriller";
+        
+        // --- Data for New Book 5 & 6 (Kurukshetra) ---
+        const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows become verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
+        const book5Genre = "Historical, Mythological, Traditional, Sanatan, Warfare, Spiritual";
+        const book5Tags = "mythological, spiritual, knowledge, Enlightening, history, ficton, narration";
 
 
         const booksData = [{
@@ -274,7 +259,7 @@
             pageCount: 81,
             genre: bookGenre,
             tags: bookTags,
-            storeLink: null // No store link for this version
+            storeLink: false // Icon will display, but won't be clickable
         }, {
             id: 2,
             title: "Silent Echoes from Dark World (Vol-1) EPUB/RTF Version",
@@ -285,7 +270,7 @@
             pageCount: 75,
             genre: bookGenre,
             tags: bookTags,
-            // ADDED: Specific Google Play Store link for EPUB/RTF version
+            // ONLY THIS BOOK has a real store link
             storeLink: "https://play.google.com/store/books/details?id=BJ2LEQAAQBAJ"
         }, {
             // --- Book 3: Erotica Paperback ---
@@ -298,7 +283,7 @@
             pageCount: 134,
             genre: book3Genre,
             tags: book3Tags,
-            storeLink: null // No store link for this version
+            storeLink: false // Icon will display, but won't be clickable
         }, {
             // --- Book 4: Erotica EPUB/RTF ---
             id: 4,
@@ -310,8 +295,35 @@
             pageCount: 119,
             genre: book3Genre,
             tags: book3Tags,
-            storeLink: null // No store link for this version
-        }];
+            storeLink: false // Icon will display, but won't be clickable
+        },
+        {
+            // --- Book 5: Mahabharata Narration (Paperback) ---
+            id: 5,
+            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (PaperBack Version)",
+            coverUrl: "https://i.postimg.cc/G3Tg9JzM/1.png", 
+            pdfLink: "https://drive.google.com/uc?export=download&id=182_NUVQKTxMLgqiMxbWRFxnA3YinJCAR",
+            description: book5Description,
+            placeholder: false,
+            pageCount: 118, 
+            genre: book5Genre,
+            tags: book5Tags,
+            storeLink: false // Icon will display, but won't be clickable
+        },
+        {
+            // --- Book 6: Mahabharata Narration (RTF) ---
+            id: 6,
+            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (RTF version)",
+            coverUrl: "https://i.postimg.cc/vmMwt22c/1c.png", // New Cover Image
+            pdfLink: "https://drive.google.com/uc?export=download&id=1H_9wavF5KvB0BqmS7_9Zmv_oFbrWqqtM", // New PDF Link (Direct Download)
+            description: book5Description,
+            placeholder: false,
+            pageCount: 96, // New Page Count
+            genre: book5Genre,
+            tags: book5Tags,
+            storeLink: false // Icon will display, but won't be clickable
+        }
+    ];
 
         // Removed the loop to populate 24 placeholders.
 
@@ -350,19 +362,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
                     <path d="M12 12 19 5"></path>
-                </svg>
-            `;
-        }
-
-        /**
-         * Simple SVG for the Right Arrow/Go To icon (Lucide style)
-         */
-        function getArrowIcon() {
-            return `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                    <path d="M5 12l14 0"></path>
-                    <path d="m13 18 6-6"></path>
-                    <path d="m13 6 6 6"></path>
                 </svg>
             `;
         }
@@ -448,15 +447,14 @@
         function renderHome() {
             return `
                 <div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
-                    <!-- Logo added here, centered and larger (h-32 w-32) -->
-                    <div class="flex justify-center mb-6">
+                    <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
                         <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                              alt="Ink and Obsidian Logo" 
                              class="h-32 w-32 object-contain" 
                              onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
                     </div>
 
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian</h1>
+                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian Publications</h1>
                     <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
                         <p>
                             <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
@@ -495,8 +493,7 @@
             return `
                 <div class="contact-form-card bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-sky-light max-w-xl mx-auto">
                     <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Connect With Us</h1>
-                    <!-- UPDATED TEXT: Hreeshyat's email -> our official email -->
-                    <p class="text-gray-600 mb-6 text-center">We'd love to hear from you. Send your message directly to our official email.</p>
+                    <!-- UPDATED TEXT: Hreeshyat's email -> our official email --><p class="text-gray-600 mb-6 text-center">We'd love to hear from you. Send your message directly to our official email.</p>
 
                     <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
                         <div class="space-y-2">
@@ -539,14 +536,28 @@
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
 
-            // Conditionally render the store link button
-            const storeButton = book.storeLink ? `
-                <a href="${book.storeLink}" target="_blank" rel="noopener noreferrer"
-                    title="Go to Google Play Store"
-                    class="inline-flex items-center justify-center bg-white border-2 border-sky-accent text-sky-accent p-3 rounded-lg font-bold text-lg hover:bg-sky-light transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05]">
-                    ${getArrowIcon()}
-                </a>
-            ` : '';
+            // Define the URL for the Google Play logo
+            const googlePlayLogoUrl = "https://i.postimg.cc/9Fv9xyhF/google-play-store-mobile-apps-logo-free-png.webp";
+
+            // Conditionally render the store link button using the logo
+            let storeButton = '';
+
+            // Check if the storeLink property exists
+            if (book.storeLink !== undefined) {
+                // Determine if it's a clickable link or a static button
+                const isClickable = typeof book.storeLink === 'string' && book.storeLink.startsWith('http');
+                const tagType = isClickable ? 'a' : 'button';
+                const hrefAttr = isClickable ? `href="${book.storeLink}" target="_blank" rel="noopener noreferrer"` : 'onclick="return false;"';
+                const cursorClass = isClickable ? 'cursor-pointer hover:bg-sky-light' : 'cursor-default opacity-50';
+
+                storeButton = `
+                    <${tagType} ${hrefAttr}
+                        title="${isClickable ? 'View on Google Play Books' : 'Store link coming soon'}"
+                        class="inline-flex items-center justify-center bg-white border-2 border-sky-accent text-sky-accent p-2 rounded-full font-bold text-lg transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] ${cursorClass}">
+                        <img src="${googlePlayLogoUrl}" alt="Google Play Books Logo" class="w-8 h-8 object-contain rounded-full">
+                    </${tagType}>
+                `;
+            }
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
@@ -556,37 +567,31 @@
                     </button>
 
                     <div class="flex flex-col lg:flex-row gap-10">
-                        <!-- Book Cover (Small Size) -->
-                        <div class="flex-shrink-0 mx-auto lg:mx-0">
+                        <!-- Book Cover (Small Size) --><div class="flex-shrink-0 mx-auto lg:mx-0">
                             <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
                         </div>
 
-                        <!-- Book Details -->
-                        <div class="flex-grow">
+                        <!-- Book Details --><div class="flex-grow">
                             <h2 class="text-5xl font-extrabold mb-4 text-obsidian">${book.title}</h2>
-                            <p class="text-xl font-medium text-sky-accent mb-6">A Collection of Dark Tales</p>
-
+                            
                             <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
                                 <p>${book.description}</p>
                             </div>
 
                             <div class="mt-4 space-y-1">
-                                <!-- Display Total Pages -->
-                                ${book.pageCount ? `
+                                <!-- Display Total Pages -->${book.pageCount ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Total Pages: <span class="text-sky-accent">${book.pageCount}</span>
                                     </p>
                                 ` : ''}
 
-                                <!-- Display Genre -->
-                                ${book.genre ? `
+                                <!-- Display Genre -->${book.genre ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Genre: <span class="text-sky-accent">${book.genre}</span>
                                     </p>
                                 ` : ''}
                                 
-                                <!-- Display Tags -->
-                                ${book.tags ? `
+                                <!-- Display Tags -->${book.tags ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Tags: <span class="text-sky-accent">${book.tags}</span>
                                     </p>
@@ -595,14 +600,12 @@
                             
                             ${!book.placeholder ? `
                                 <div class="mt-8 flex items-center space-x-4 relative">
-                                    <!-- 1. Get It Button -->
-                                    <a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
+                                    <!-- 1. Get It Button --><a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
                                         class="inline-flex items-center bg-sky-accent text-white py-3 px-6 rounded-lg font-bold text-lg hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05]">
                                         ${getDownloadIcon()}
                                         Get It
                                     </a>
-                                    <!-- 2. Go To Store Button (Conditional) -->
-                                    ${storeButton}
+                                    <!-- 2. Go To Store Button (Conditional) -->${storeButton}
                                 </div>
                             ` : `<p class="mt-8 p-4 bg-sky-light rounded-lg text-sky-accent font-semibold">Details for this book are coming soon!</p>`}
                         </div>
@@ -615,12 +618,10 @@
             const bookCards = filteredBooks.map(book => `
                 <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
-                    <!-- Book Cover -->
-                    <img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
 
-                    <!-- Title -->
-                    <p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
                 </div>
             `).join('');
 
@@ -628,20 +629,16 @@
             return `
                 <h1 class="text-4xl font-black mb-4 text-sky-accent text-center">My Books</h1>
 
-                <!-- Search Bar Container (Flex for centering, max-w for desktop limit) -->
-                <div class="flex justify-center mb-10">
+                <!-- Search Bar Container (Flex for centering, max-w for desktop limit) --><div class="flex justify-center mb-10">
                     <div class="max-w-xl w-full flex justify-center">
-                        <!-- Dynamic Search Wrapper -->
-                        <div id="search-bar-wrapper" class="relative h-12 w-12 transition-all duration-500 ease-in-out">
+                        <!-- Dynamic Search Wrapper --><div id="search-bar-wrapper" class="relative h-12 w-12 transition-all duration-500 ease-in-out">
                             
-                            <!-- Input Field: Absolute positioning to expand left from the button -->
-                            <input type="text" id="book-search-input" oninput="filterBooks(this.value)"
+                            <!-- Input Field: Absolute positioning to expand left from the button --><input type="text" id="book-search-input" oninput="filterBooks(this.value)"
                                 class="absolute right-0 h-full p-3 pl-6 pr-16 border-2 border-sky-light rounded-full text-lg opacity-0 w-0 input-focus 
                                        transition-all duration-500 ease-in-out bg-white shadow-xl"
                                 placeholder="Search titles...">
                             
-                            <!-- Toggle Search Button: Fixed on the right edge (z-index for stacking and pushing) -->
-                            <button onclick="toggleSearch()" id="search-toggle-btn" 
+                            <!-- Toggle Search Button: Fixed on the right edge (z-index for stacking and pushing) --><button onclick="toggleSearch()" id="search-toggle-btn" 
                                 class="absolute right-0 top-0 p-3 bg-sky-accent text-white rounded-full transition duration-300 transform hover:scale-105 shadow-lg shadow-sky-accent/20 z-10">
                                 ${getSearchIcon()}
                             </button>
@@ -650,8 +647,7 @@
                     </div>
                 </div>
 
-                <!-- Book Grid (6 books per row - adjusted to automatically fit content) -->
-                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                <!-- Book Grid (6 books per row - adjusted to automatically fit content) --><div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                     ${bookCards}
                 </div>
             `;
@@ -683,12 +679,10 @@
             const filteredCards = results.map(book => `
                 <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
-                    <!-- Book Cover -->
-                    <img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
 
-                    <!-- Title -->
-                    <p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
                 </div>
             `).join('');
 
@@ -841,6 +835,7 @@
     </script>
 </body>
 </html>
+
 
 
 
