@@ -259,7 +259,7 @@
             pageCount: 81,
             genre: bookGenre,
             tags: bookTags,
-            storeLink: false // Icon will display, but won't be clickable
+            storeLink: null // Hides the icon for Paperback version
         }, {
             id: 2,
             // CORRECTED: EUPB -> EPUB
@@ -284,7 +284,7 @@
             pageCount: 134,
             genre: book3Genre,
             tags: book3Tags,
-            storeLink: false // Icon will display, but won't be clickable
+            storeLink: null // Hides the icon for Paperback version
         }, {
             // --- Book 4: Erotica EPUB/RTF ---
             id: 4,
@@ -297,7 +297,7 @@
             pageCount: 119,
             genre: book3Genre,
             tags: book3Tags,
-            storeLink: false // Icon will display, but won't be clickable
+            storeLink: false // Shows unclickable icon for non-Paperback
         },
         {
             // --- Book 5: Mahabharata Narration (Paperback) ---
@@ -311,12 +311,12 @@
             pageCount: 118, 
             genre: book5Genre,
             tags: book5Tags,
-            storeLink: false // Icon will display, but won't be clickable
+            storeLink: null // Hides the icon for Paperback version
         },
         {
             // --- Book 6: Mahabharata Narration (RTF) ---
             id: 6,
-            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (RTF version)",
+            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārata (RTF version)",
             // UPDATED COVER LINK
             coverUrl: "https://i.postimg.cc/3xLbkK0k/1c.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=1H_9wavF5KvB0BqmS7_9Zmv_oFbrWqqtM", 
@@ -325,7 +325,7 @@
             pageCount: 96, 
             genre: book5Genre,
             tags: book5Tags,
-            storeLink: false // Icon will display, but won't be clickable
+            storeLink: false // Shows unclickable icon for non-Paperback
         }
     ];
 
@@ -546,8 +546,8 @@
             // Conditionally render the store link button using the logo
             let storeButton = '';
 
-            // Check if the storeLink property exists
-            if (book.storeLink !== undefined) {
+            // Check if storeLink is explicitly NOT null to control visibility. (null = hidden, false/URL = visible)
+            if (book.storeLink !== null) {
                 // Determine if it's a clickable link or a static button
                 const isClickable = typeof book.storeLink === 'string' && book.storeLink.startsWith('http');
                 const tagType = isClickable ? 'a' : 'button';
@@ -839,6 +839,7 @@
     </script>
 </body>
 </html>
+
 
 
 
