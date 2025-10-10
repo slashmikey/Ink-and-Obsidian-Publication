@@ -345,6 +345,18 @@
                 </svg>
             `;
         }
+        
+        /**
+         * Returns the custom image for the Share icon.
+         */
+        function getShareImage(bookId) {
+            const shareImageUrl = 'https://i.postimg.cc/CMJBScxj/Gemini-Generated-Image-la2f4bla2f4bla2f-removebg-preview-1.png';
+            return `
+                <img id="share-img-${bookId}" src="${shareImageUrl}" alt="Share Icon" 
+                    class="w-8 h-8 object-contain" 
+                    onerror="this.onerror=null;this.src='https://placehold.co/32x32/0ea5e9/ffffff?text=Share'">
+            `;
+        }
 
         /**
          * Simple SVG for the Download/Get It icon (Lucide style)
@@ -445,6 +457,41 @@
                 messageDiv.textContent = '';
                 messageDiv.className = 'mt-4 p-3 rounded-lg text-center hidden';
             }, 5000);
+        }
+        
+        /**
+         * Copies the unique book link to the clipboard and provides visual feedback.
+         * @param {number} bookId - The ID of the book to generate the link for.
+         */
+        function copyBookLink(bookId) {
+            // Construct the unique URL for the book detail page
+            const link = window.location.origin + window.location.pathname + `?page=book-detail&id=${bookId}`;
+            
+            // Use execCommand('copy') as navigator.clipboard might not work in some environments
+            const tempInput = document.createElement('input');
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Provide visual feedback
+            const shareButton = document.getElementById(`share-btn-${bookId}`);
+            const originalHTML = shareButton.innerHTML;
+            
+            // Temporary change for feedback (using Tailwind for background/text color)
+            shareButton.classList.remove('bg-sky-accent', 'shadow-sky-accent/40');
+            shareButton.classList.add('bg-green-500', 'shadow-green-500/40');
+            
+            // Replace image with text for feedback
+            shareButton.innerHTML = '<span class="text-white font-semibold text-sm">Link Copied!</span>';
+
+            setTimeout(() => {
+                // Revert button styling and content
+                shareButton.classList.remove('bg-green-500', 'shadow-green-500/40');
+                shareButton.classList.add('bg-sky-accent', 'shadow-sky-accent/40');
+                shareButton.innerHTML = getShareImage(bookId); // Revert to image icon
+            }, 1500);
         }
 
 
@@ -553,6 +600,7 @@
                 const isClickable = typeof book.storeLink === 'string' && book.storeLink.startsWith('http');
                 const tagType = isClickable ? 'a' : 'button';
                 const hrefAttr = isClickable ? `href="${book.storeLink}" target="_blank" rel="noopener noreferrer"` : 'onclick="return false;"';
+                // Added p-0 to button to match size of the Google Play icon 
                 const cursorClass = isClickable ? 'cursor-pointer hover:bg-sky-light' : 'cursor-default opacity-50';
 
                 storeButton = `
@@ -563,6 +611,15 @@
                     </${tagType}>
                 `;
             }
+            
+            // Share Button HTML: Changed styling to match Google Play Button size and removed blue circle.
+            const shareButton = `
+                <button id="share-btn-${book.id}" onclick="copyBookLink(${book.id})"
+                    title="Copy Share Link"
+                    class="inline-flex items-center justify-center bg-white border-2 border-sky-accent p-2 rounded-full font-bold text-lg transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] cursor-pointer hover:bg-sky-light">
+                    ${getShareImage(book.id)}
+                </button>
+            `;
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
@@ -611,6 +668,7 @@
                                         Get It
                                     </a>
                                     <!-- 2. Go To Store Button (Conditional) -->${storeButton}
+                                    <!-- 3. Share Button (Always Visible) -->${shareButton}
                                 </div>
                             ` : `<p class="mt-8 p-4 bg-sky-light rounded-lg text-sky-accent font-semibold">Details for this book are coming soon!</p>`}
                         </div>
