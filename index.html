@@ -233,7 +233,7 @@
         let isSearchVisible = false;
         let isMobileMenuOpen = false; 
         
-        // --- Shared Data for Silent Echoes (Book 1 & 2) ---
+        // --- Shared Data for Silent Echoes (Vol-1) ---
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
         const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy";
         const bookTags = "brutal crimes, mass killings, vulgar language, 16+, savage vengeance, and psychological torment";
@@ -247,6 +247,11 @@
         const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows become verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
         const book5Genre = "Historical, Mythological, Traditional, Sanatan, Warfare, Spiritual";
         const book5Tags = "mythological, spiritual, knowledge, Enlightening, history, ficton, narration";
+
+        // --- Data for Silent Echoes Vol-2 (Book 7 & 8) ---
+        const book7Description = "Silent Echoes From The Dark World (Vol–02) by Hreeshyat Talukdar is a descent into the macabre realm of folklore, tragedy, and psychological torment—crafted for readers who crave horror in its most unfiltered and literary form. Blending ancient myths with visceral modern storytelling, the collection resurrects monstrous tales from across the world: the vengeful whistle of El Silbón, the cannibalistic hunger of the Wendigo, the merciless duality of the Slavic Yaga, the beguiling Jorōgumo who weaves death through desire, and the blood-soaked laments of Strzyga and Vucodlak. Each story delves into the intersection of superstition and sanity, revealing not only the terrors of the supernatural but also the horrors concealed within human nature. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above.";
+        const book7Genre = "Horror, Supernatural, Dark Fantasy, Traditional Folklore, 18+, Gore";
+        const book7Tags = "brutality, cuss words, vulgar slangs, 18+, sexuality, psychological, mental torture";
 
 
         const booksData = [{
@@ -262,7 +267,6 @@
             storeLink: null // Hides the icon for Paperback version
         }, {
             id: 2,
-            // CORRECTED: EUPB -> EPUB
             title: "Silent Echoes from Dark World (Vol-1) EPUB/RTF Version",
             coverUrl: "https://i.postimg.cc/SQrbGpZW/1.jpg", 
             pdfLink: "https://drive.google.com/uc?export=download&id=1FS1oNKghAIbV2f75PYk-0X2SRlb391NI",
@@ -271,7 +275,7 @@
             pageCount: 75,
             genre: bookGenre,
             tags: bookTags,
-            // ONLY THIS BOOK has a real store link
+            // CLICKABLE Google Play link
             storeLink: "https://play.google.com/store/books/details?id=BJ2LEQAAQBAJ"
         }, {
             // --- Book 3: Erotica Paperback ---
@@ -288,7 +292,6 @@
         }, {
             // --- Book 4: Erotica EPUB/RTF ---
             id: 4,
-            // CORRECTED: EUPB -> EPUB
             title: "Erotica Unplugged: Not A Love Bite (EPUB/RTF Version)",
             coverUrl: "https://i.postimg.cc/bNPKX4zy/1.png",
             pdfLink: "https://drive.google.com/uc?export=download&id=1aIEP7Z0vpWBzCilrHEPjZdqdL3R_MmRU",
@@ -297,14 +300,13 @@
             pageCount: 119,
             genre: book3Genre,
             tags: book3Tags,
-            // INTEGRATED GOOGLE PLAY LINK FOR THIS BOOK
+            // CLICKABLE Google Play link
             storeLink: "https://play.google.com/store/books/details?id=V0uNEQAAQBAJ"
         },
         {
             // --- Book 5: Mahabharata Narration (Paperback) ---
             id: 5,
             title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (PaperBack Version)",
-            // UPDATED COVER LINK
             coverUrl: "https://i.postimg.cc/kGxpGKK0/1.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=182_NUVQKTxMLgqiMxbWRFxnA3YinJCAR",
             description: book5Description,
@@ -318,7 +320,6 @@
             // --- Book 6: Mahabharata Narration (RTF) ---
             id: 6,
             title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (RTF version)",
-            // UPDATED COVER LINK
             coverUrl: "https://i.postimg.cc/3xLbkK0k/1c.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=1H_9wavF5KvB0BqmS7_9Zmv_oFbrWqqtM", 
             description: book5Description,
@@ -326,8 +327,34 @@
             pageCount: 96, 
             genre: book5Genre,
             tags: book5Tags,
-            // NEWLY INTEGRATED GOOGLE PLAY LINK FOR THIS BOOK
+            // CLICKABLE Google Play link
             storeLink: "https://play.google.com/store/books/details?id=KrKNEQAAQBAJ"
+        },
+        {
+            // --- Book 7: Silent Echoes Vol-2 (Paperback) ---
+            id: 7,
+            title: "Silent Echoes from Dark World (Vol-2) Paperback Version (For 18+ Readers)",
+            coverUrl: "https://i.postimg.cc/rydwF94f/1.png", 
+            pdfLink: "https://drive.google.com/uc?export=download&id=1vERZC-cjtdDKOJxuR2_3WSV9NhUHUEaa",
+            description: book7Description,
+            placeholder: false,
+            pageCount: 204,
+            genre: book7Genre,
+            tags: book7Tags,
+            storeLink: null // Hides the icon for Paperback version
+        },
+        {
+            // --- Book 8: Silent Echoes Vol-2 (EPUB/RTF) ---
+            id: 8,
+            title: "Silent Echoes from Dark World (Vol-2) EPUB/RTF Version (For 18+ Readers)",
+            coverUrl: "https://i.postimg.cc/26CbqL4M/1c.png", 
+            pdfLink: "https://drive.google.com/uc?export=download&id=1q3BaReI5aFIOctnU5UCCndbh21436nCG",
+            description: book7Description,
+            placeholder: false,
+            pageCount: 264,
+            genre: book7Genre,
+            tags: book7Tags,
+            storeLink: false // Shows non-clickable icon (digital version)
         }
     ];
 
@@ -847,6 +874,7 @@
     </script>
 </body>
 </html>
+
 
 
 
