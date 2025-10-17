@@ -122,7 +122,7 @@
             animation: rainbow-glow 6s linear infinite; /* Slow, continuous loop */
             border: 4px solid transparent !important; /* Override standard border */
             outline: none; /* Remove default blue focus outline */
-            box-shadow: none; /* The animation provides the shadow */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06); /* Added subtle shadow when expanded */
         }
         
         /* 4. Helper Class to apply Mirror Shine to the button */
@@ -139,30 +139,40 @@
 <body class="min-h-screen flex flex-col">
 
     <!-- Header / Navigation Bar --><header class="bg-sky-light sticky top-0 z-10 border-b border-sky-light/80 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Logo & Title --><a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01]">
-                <!-- Logo Source updated to external link --><img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
-                     alt="Ink and Obsidian Logo" 
-                     class="h-8 w-8 object-contain shadow-md" 
-                     onerror="this.onerror=null;this.src='https://placehold.co/32x32/1f2937/ffffff?text=I&O';" 
-                     loading="lazy">
-                <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publications</span>
-            </a>
-
-            <!-- Right Side Actions (Mobile/Desktop) --><div class="flex items-center space-x-3">
-                <!-- Navigation Links (Desktop) --><nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
-                    <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
-                    <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
-                    <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
-                </nav>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
+            
+            <!-- Mobile Menu Toggle Button (LEFT SIDE on mobile) and Logo/Title -->
+            <!-- The flex-row-reverse makes the button appear first (left) on mobile -->
+            <div class="flex flex-row-reverse md:flex-row items-center justify-between w-full md:w-auto">
                 
-                <!-- Mobile Menu Toggle Button (Hamburger) --><button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" onclick="toggleMobileMenu()">
+                <!-- Mobile Menu Toggle Button (Hamburger) -->
+                <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" 
+                        onclick="toggleMobileMenu()" 
+                        aria-label="Open mobile menu">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
+
+                <!-- Logo & Title -->
+                <a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01] ml-0 md:ml-0 mr-auto md:mr-0">
+                    <!-- Logo Source updated to external link --><img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
+                         alt="Ink and Obsidian Logo" 
+                         class="h-8 w-8 object-contain shadow-md" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/32x32/1f2937/ffffff?text=I&O';" 
+                         loading="lazy">
+                    <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publications</span>
+                </a>
             </div>
+
+            <!-- Navigation Links (Desktop, Pushed to Right) -->
+            <nav class="hidden md:flex space-x-8 items-center ml-auto">
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="series" onclick="navigate('series')">Our Series</a>
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
+            </nav>
         </div>
     </header>
 
@@ -175,7 +185,7 @@
          class="fixed top-0 right-0 w-64 h-full bg-white shadow-2xl z-30 transform translate-x-full mobile-menu md:hidden">
         
         <!-- Close Button --><div class="p-4 flex justify-end border-b border-sky-light">
-            <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200">
+            <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200" aria-label="Close mobile menu">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -184,6 +194,7 @@
 
         <!-- Navigation Links --><nav class="flex flex-col p-4 space-y-2">
             <!-- Used handleMobileNav to close the menu upon click --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="home" onclick="handleMobileNav('home')">Home</a>
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="series" onclick="handleMobileNav('series')">Our Series</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="books" onclick="handleMobileNav('books')">My Books</a>
             <!-- UPDATED TEXT: The Author -> The Visionary --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Visionary</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="contact" onclick="handleMobileNav('contact')">Contact Us</a>
@@ -249,7 +260,7 @@
         const book5Tags = "mythological, spiritual, knowledge, Enlightening, history, ficton, narration";
 
         // --- Data for Silent Echoes Vol-2 (Book 7 & 8) ---
-        const book7Description = "Silent Echoes From The Dark World (Vol–02) by Hreeshyat Talukdar is a descent into the macabre realm of folklore, tragedy, and psychological torment—crafted for readers who crave horror in its most unfiltered and literary form. Blending ancient myths with visceral modern storytelling, the collection resurrects monstrous tales from across the world: the vengeful whistle of El Silbón, the cannibalistic hunger of the Wendigo, the merciless duality of the Slavic Yaga, the beguiling Jorōgumo who weaves death through desire, and the blood-soaked laments of Strzyga and Vucodlak. Each story delves into the intersection of superstition and sanity, revealing not only the terrors of the supernatural but also the horrors concealed within human nature. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above.";
+        const book7Description = "Silent Echoes From The Dark World (Vol–02) by Hreeshyat Talukdar is a descent into the macabre realm of folklore, tragedy, and psychological torment—crafted for readers who crave horror in its most unfiltered and literary form. Bending ancient myths with visceral modern storytelling, the collection resurrects monstrous tales from across the world: the vengeful whistle of El Silbón, the cannibalistic hunger of the Wendigo, the merciless duality of the Slavic Yaga, the beguiling Jorōgumo who weaves death through desire, and the blood-soaked laments of Strzyga and Vucodlak. Each story delves into the intersection of superstition and sanity, revealing not only the terrors of the supernatural but also the horrors concealed within human nature. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above.";
         const book7Genre = "Horror, Supernatural, Dark Fantasy, Traditional Folklore, 18+, Gore";
         const book7Tags = "brutality, cuss words, vulgar slangs, 18+, sexuality, psychological, mental torture";
 
@@ -306,7 +317,7 @@
         {
             // --- Book 5: Mahabharata Narration (Paperback) ---
             id: 5,
-            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (PaperBack Version)",
+            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārta (PaperBack Version)",
             coverUrl: "https://i.postimg.cc/kGxpGKK0/1.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=182_NUVQKTxMLgqiMxbWRFxnA3YinJCAR",
             description: book5Description,
@@ -319,7 +330,7 @@
         {
             // --- Book 6: Mahabharata Narration (RTF) ---
             id: 6,
-            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata (RTF version)",
+            title: "My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārta (RTF version)",
             coverUrl: "https://i.postimg.cc/3xLbkK0k/1c.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=1H_9wavF5KvB0BqmS7_9Zmv_oFbrWqqtM", 
             description: book5Description,
@@ -347,18 +358,49 @@
             // --- Book 8: Silent Echoes Vol-2 (EPUB/RTF) ---
             id: 8,
             title: "Silent Echoes from Dark World (Vol-2) EPUB/RTF Version (For 18+ Readers)",
-            coverUrl: "https://i.postimg.cc/26CbqL4M/1c.png", 
+            coverUrl: "https://i.postimg.cc/MppmzxtK/1c.png", 
             pdfLink: "https://drive.google.com/uc?export=download&id=1q3BaReI5aFIOctnU5UCCndbh21436nCG",
             description: book7Description,
             placeholder: false,
             pageCount: 264,
             genre: book7Genre,
             tags: book7Tags,
-            storeLink: false // Shows non-clickable icon (digital version)
+            storeLink: "https://play.google.com/store/books/details?id=F-PqEQAAQBAJ"
         }
     ];
 
-        // Removed the loop to populate 24 placeholders.
+    // --- NEW: Series Data Structure ---
+    const seriesData = [
+        {
+            id: 'silent-echoes',
+            title: 'Silent Echoes from Dark World',
+            seriesLogo: 'https://i.postimg.cc/y83Wmb8T/Silent-Echoes-From-the-Dark-World.png',
+            description: "Silent Echoes From The Dark World is a dark folklore and psychological horror anthology series that transcends age boundaries—crafted for mature teens and adult readers who crave the thrill of mythic terror. Each volume resurrects forgotten legends from across the world, merging ancient traditions with modern storytelling to evoke both fear and fascination. Every story unfolds as an unsettling journey through folklore’s most shadowed corridors—where superstition, sin, and humanity intertwine in poetic horror. This series invites readers to confront their fears, explore the duality of myth and morality, and lose themselves in the haunting echoes that linger between reality and nightmare.",
+            bookIds: [1, 2, 7, 8],
+        },
+        {
+            id: 'erotica-unplugged',
+            title: 'Erotica Unplugged',
+            // --- UPDATED LOGO ---
+            seriesLogo: 'https://i.postimg.cc/cChC4vBj/Erotica-Unplugged.png',
+            // --- DESCRIPTION UPDATED ---
+            description: "“Erotica Unplugged” unfolds as a Shakespearean symphony drenched in modern excess, where desire rots into despair and passion burns beneath the shadow of guilt. Within its dark fantasy realm, love festers amid lust, betrayal, and moral decay, each verse echoing the poetry of ruin. Characters indulge in sin like art—tobacco-stained, drink-soaked souls lost in eloquent profanity. Every dialogue drips with metaphor, every scene a dance between sanity and seduction. A psychological thriller that strips romance bare, exposing its venom—this 18+ saga is not for the faint-hearted, but for those who crave truth in corrupted beauty. ", 
+            bookIds: [3, 4],
+        },
+        // REMOVED 'kurukshetra' SERIES ENTRY
+    ];
+
+    /**
+     * Helper function to filter books by series ID.
+     * @param {string} seriesId - The ID of the series to filter by.
+     * @returns {Array} - The list of books belonging to that series.
+     */
+    function getBooksBySeriesId(seriesId) {
+        const series = seriesData.find(s => s.id === seriesId);
+        if (!series) return [];
+        return booksData.filter(book => series.bookIds.includes(book.id));
+    }
+
 
         // --- Utility Functions ---
 
@@ -374,9 +416,6 @@
             `;
         }
         
-        // REMOVED: getShareImage function
-        // REMOVED: copyBookLink function
-
         /**
          * Simple SVG for the Download/Get It icon (Lucide style)
          */
@@ -478,8 +517,6 @@
             }, 5000);
         }
         
-        // REMOVED: copyBookLink function (The actual functionality was moved out)
-
         // --- Page Content Rendering Functions ---
         function renderHome() {
             return `
@@ -568,6 +605,85 @@
                 </div>
             `;
         }
+        
+        // --- RENDER SERIES LIST PAGE (Now renders all series) ---
+        function renderSeriesList() {
+            const seriesCards = seriesData.map(series => {
+                // Determine if a description exists
+                const hasDescription = series.description && series.description.trim().length > 0;
+
+                return `
+                    <div class="bio-card bg-white p-6 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto mb-10 last:mb-0">
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                            <!-- Large Logo -->
+                            <div class="flex-shrink-0">
+                                <img src="${series.seriesLogo}" 
+                                     alt="${series.title} Series Logo" 
+                                     class="w-48 h-48 object-contain rounded-xl shadow-lg border border-gray-100" 
+                                     onerror="this.onerror=null;this.src='https://placehold.co/192x192/1f2937/ffffff?text=Series+Logo';">
+                            </div>
+                            
+                            <!-- Title, Description, and Link -->
+                            <div class="flex-grow text-center md:text-left pt-4">
+                                <h2 class="text-3xl font-extrabold mb-2 text-obsidian">
+                                    ${series.title}
+                                </h2>
+                                
+                                <!-- SERIES DESCRIPTION (Conditional Rendering) -->
+                                ${hasDescription ? `
+                                    <p class="text-gray-700 mb-4 text-sm md:text-base leading-relaxed">
+                                        ${series.description}
+                                    </p>
+                                ` : '' /* Removed the placeholder text */}
+
+                                <!-- Link to Series Detail Page (Navy Blue Text) -->
+                                <a href="#" onclick="navigate('series-detail', '${series.id}')" 
+                                   class="inline-flex items-center text-lg font-bold text-blue-800 hover:text-sky-accent transition duration-200">
+                                    See our books <span class="ml-2">>>></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <h1 class="text-4xl font-black mb-10 text-sky-accent text-center">Our Series</h1>
+                ${seriesCards}
+            `;
+        }
+
+        // --- NEW: RENDER SERIES DETAIL PAGE ---
+        function renderSeriesDetail(seriesId) {
+            const series = seriesData.find(s => s.id === seriesId);
+            if (!series) return `<p class="text-center text-red-500">Series not found.</p>`;
+
+            const filteredBooks = getBooksBySeriesId(seriesId);
+
+            const bookCards = filteredBooks.map(book => `
+                <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
+                    onclick="navigate('book-detail', ${book.id})">
+                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
+
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                </div>
+            `).join('');
+
+            return `
+                <button onclick="navigate('series')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to Series List">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
+                    Back to Series List
+                </button>
+                
+                <h1 class="text-4xl font-black mb-10 text-obsidian text-center">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
+
+                <!-- Book Grid (6 books per row - adjusted to automatically fit content) -->
+                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                    ${bookCards}
+                </div>
+            `;
+        }
 
         function renderBookDetail(bookId) {
             const book = booksData.find(b => b.id === bookId);
@@ -600,14 +716,14 @@
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
-                    <button onclick="navigate('books')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300">
+                    <button onclick="navigate('books')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to My Books">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
                         Back to My Books
                     </button>
 
                     <div class="flex flex-col lg:flex-row gap-10">
                         <!-- Book Cover (Small Size) --><div class="flex-shrink-0 mx-auto lg:mx-0">
-                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
+                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-48 object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
                         </div>
 
                         <!-- Book Details --><div class="flex-grow">
@@ -674,11 +790,13 @@
                             
                             <!-- Input Field: Absolute positioning to expand left from the button --><input type="text" id="book-search-input" oninput="filterBooks(this.value)"
                                 class="absolute right-0 h-full p-3 pl-6 pr-16 border-2 border-sky-light rounded-full text-lg opacity-0 w-0 input-focus 
-                                       transition-all duration-500 ease-in-out bg-white shadow-xl"
-                                placeholder="Search titles...">
+                                       transition-all duration-500 ease-in-out bg-white"
+                                placeholder="Search titles..."
+                                aria-label="Search book titles">
                             
                             <!-- Toggle Search Button: Fixed on the right edge (z-index for stacking and pushing) --><button onclick="toggleSearch()" id="search-toggle-btn" 
-                                class="absolute right-0 top-0 p-3 bg-sky-accent text-white rounded-full transition duration-300 transform hover:scale-105 shadow-lg shadow-sky-accent/20 z-10">
+                                class="absolute right-0 top-0 p-3 bg-sky-accent text-white rounded-full transition duration-300 transform hover:scale-105 shadow-lg shadow-sky-accent/20 z-10"
+                                aria-label="Toggle search bar visibility">
                                 ${getSearchIcon()}
                             </button>
 
@@ -737,13 +855,14 @@
             const button = document.getElementById('search-toggle-btn');
             
             // Define expanded width based on screen size for responsiveness
-            let expandedWidth;
-            if (window.innerWidth >= 1024) {
-                expandedWidth = '30rem'; // Desktop/large
-            } else if (window.innerWidth >= 640) {
-                expandedWidth = '20rem'; // Tablet/medium
-            } else {
-                expandedWidth = '90vw'; // Mobile/small (90% of viewport width)
+            function getExpandedWidth() {
+                if (window.innerWidth >= 1024) {
+                    return '30rem'; // Desktop/large
+                } else if (window.innerWidth >= 640) {
+                    return '20rem'; // Tablet/medium
+                } else {
+                    return '90vw'; // Mobile/small (90% of viewport width)
+                }
             }
 
 
@@ -751,7 +870,7 @@
 
             if (isSearchVisible) {
                 // Expand and show
-                wrapper.style.width = expandedWidth;
+                wrapper.style.width = getExpandedWidth();
                 input.classList.remove('w-0', 'opacity-0');
                 input.classList.add('w-full', 'opacity-100', 'rainbow-active'); 
                 button.classList.add('search-icon-shining'); 
@@ -780,10 +899,10 @@
 
         /**
          * Manages client-side routing and page transitions.
-         * @param {string} page - The target page key ('home', 'books', 'author', 'contact', 'book-detail').
-         * @param {number|null} [bookId=null] - Optional ID for book detail view.
+         * @param {string} page - The target page key ('home', 'series', 'series-detail', 'books', 'author', 'contact', 'book-detail').
+         * @param {number|string|null} [id=null] - Optional ID (book ID or series ID) for detail views.
          */
-        function navigate(page, bookId = null) {
+        function navigate(page, id = null) {
             const container = document.getElementById('content-container');
             const navLinksDesktop = document.querySelectorAll('.nav-link');
             const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
@@ -794,7 +913,8 @@
 
             // 2. Update State
             currentPage = page;
-            currentBookId = bookId;
+            currentBookId = page === 'book-detail' ? id : null;
+            let currentSeriesId = (page === 'series-detail' || page === 'series') ? id : null;
 
             // 3. Wait for Exit Animation to complete before rendering new content
             setTimeout(() => {
@@ -810,13 +930,19 @@
                     case 'contact':
                         htmlContent = renderContact();
                         break;
+                    case 'series':
+                        htmlContent = renderSeriesList();
+                        break;
+                    case 'series-detail':
+                        htmlContent = renderSeriesDetail(id);
+                        break;
                     case 'books':
                         htmlContent = renderBooks();
                         // Reset search visibility state when moving to books page
                         isSearchVisible = false;
                         break;
                     case 'book-detail':
-                        htmlContent = renderBookDetail(bookId);
+                        htmlContent = renderBookDetail(id);
                         break;
                     default:
                         htmlContent = renderHome(); // Default to home
@@ -829,8 +955,15 @@
 
                 // 5. Update Navigation Styling
                 allNavLinks.forEach(link => {
-                    // Determine the active link key (for book-detail, the active link is 'books')
-                    const activeKey = (page === 'book-detail' ? 'books' : page);
+                    // Determine the active link key
+                    let activeKey = page;
+                    if (page === 'book-detail' && currentBookId) {
+                        // If viewing a book detail, highlight the 'books' or 'series' link depending on context (defaulting to 'books' here)
+                        activeKey = 'books';
+                    } else if (page === 'series-detail') {
+                        // If viewing a series detail, highlight the 'series' link
+                        activeKey = 'series';
+                    }
 
                     // Check both desktop and mobile links
                     if (link.getAttribute('data-page') === activeKey) {
@@ -846,6 +979,15 @@
                     // Ensure search wrapper is collapsed on initial load of the books page
                     if (searchWrapper) {
                          searchWrapper.style.width = '3rem';
+                         // Also reset input state just in case
+                         const input = document.getElementById('book-search-input');
+                         const button = document.getElementById('search-toggle-btn');
+
+                         input.classList.remove('w-full', 'opacity-100', 'rainbow-active');
+                         button.classList.remove('search-icon-shining');
+                         input.classList.add('w-0', 'opacity-0');
+                         input.value = '';
+                         filterBooks(''); 
                     }
                 }
 
@@ -874,7 +1016,6 @@
     </script>
 </body>
 </html>
-
 
 
 
