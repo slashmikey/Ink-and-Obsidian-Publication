@@ -169,7 +169,7 @@
             <nav class="hidden md:flex space-x-8 items-center ml-auto">
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="home" onclick="navigate('home')">Home</a>
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="series" onclick="navigate('series')">Our Series</a>
-                <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">My Books</a>
+                <a href="#" class="nav-link text-obsidian font-medium" data-page="books" onclick="navigate('books')">Our Books</a>
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="author" onclick="navigate('author')">The Visionary</a>
                 <a href="#" class="nav-link text-obsidian font-medium" data-page="contact" onclick="navigate('contact')">Contact Us</a>
             </nav>
@@ -195,7 +195,7 @@
         <!-- Navigation Links --><nav class="flex flex-col p-4 space-y-2">
             <!-- Used handleMobileNav to close the menu upon click --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="home" onclick="handleMobileNav('home')">Home</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="series" onclick="handleMobileNav('series')">Our Series</a>
-            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="books" onclick="handleMobileNav('books')">My Books</a>
+            <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="books" onclick="handleMobileNav('books')">Our Books</a>
             <!-- UPDATED TEXT: The Author -> The Visionary --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Visionary</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="contact" onclick="handleMobileNav('contact')">Contact Us</a>
         </nav>
@@ -244,6 +244,9 @@
         let isSearchVisible = false;
         let isMobileMenuOpen = false; 
         
+        // NEW: Track the previous page for the back button on book details
+        let backButtonRoute = { page: 'books', id: null }; 
+
         // --- Shared Data for Silent Echoes (Vol-1) ---
         const bookDescription = "Silent Echoes From Dark World (Vol-1) is a collection of horror and psychological thriller tales woven from traditional folklores and beliefs of Europe, France, India, Japan, and China. Each story dives deep into shadows where myth collides with the darkest truths of the human mind. These are not softened fairy tales. They are brutal, visceral, and unrelenting—echoes of nightmares once whispered around fires, now resurrected for modern readers. This collection is intended strictly for mature readers above sixteen years of age. Those unprepared for psychological violence, disturbing imagery, and the chilling pulse of folklore reborn should turn away. These are not stories to be read lightly; they are doors into silence, and once you enter, the darkness will not release you unchanged";
         const bookGenre = "Historical, Horror, Supernatural, Traditional Folklore, Fantasy";
@@ -400,6 +403,20 @@
         return booksData.filter(book => series.bookIds.includes(book.id));
     }
 
+    /**
+     * Helper function to get the series ID for a given book ID.
+     * @param {number} bookId - The ID of the book.
+     * @returns {string|null} - The ID of the series the book belongs to, or null.
+     */
+    function getSeriesIdByBookId(bookId) {
+        for (const series of seriesData) {
+            if (series.bookIds.includes(bookId)) {
+                return series.id;
+            }
+        }
+        return null;
+    }
+
 
         // --- Utility Functions ---
 
@@ -436,6 +453,15 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
                     <path d="M12 12 19 5"></path>
+                </svg>
+            `;
+        }
+
+        // SVG for the simple back arrow icon (Lucide style)
+        function getBackIcon() {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <path d="m15 18-6-6 6-6"/>
                 </svg>
             `;
         }
@@ -670,9 +696,9 @@
             `).join('');
 
             return `
-                <button onclick="navigate('series')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to Series List">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
-                    Back to Our Series
+                <!-- Updated Back Button: Icon only, redirects to Our Books -->
+                <button onclick="navigate('series')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="Back to Our Series">
+                    ${getBackIcon()}
                 </button>
                 
                 <h1 class="text-4xl font-black mb-10 text-obsidian text-center">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
@@ -688,20 +714,15 @@
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
 
-            // Determine back button destination dynamically
-            let backPage = backButtonRoute.page;
-            let backId = backButtonRoute.id;
-            let backText = "My Books";
+            // Determine back button destination (now always simplified to go to 'books')
             let backHandler = "navigate('books')";
 
-            if (backPage === 'series-detail' && backId) {
-                const series = seriesData.find(s => s.id === backId);
-                backText = series ? series.title + ' Series' : 'Series List';
-                // FIX: Corrected typo from 'Maps' to 'navigate' (This was the persistent bug fix)
-                backHandler = `Maps('series-detail', '${backId}')`;
-            } else {
-                 backHandler = "navigate('books')";
-            }
+            // We need to check if the book detail was reached from a series page to redirect back to the series list page (navigate('series'))
+            // Since the request is to always redirect to the 'Our Books' webpage, we will ignore the previous page logic for the button handler, 
+            // BUT, the new request is to redirect to 'Our Series' (navigate('series')).
+
+            // Let's implement the redirect to 'Our Series' (navigate('series')) as requested by the user, regardless of origin.
+            backHandler = "navigate('series')";
 
             // Define the URL for the Google Play logo
             const googlePlayLogoUrl = "https://i.postimg.cc/9Fv9xyhF/google-play-store-mobile-apps-logo-free-png.webp";
@@ -730,9 +751,9 @@
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
-                    <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to ${backText}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
-                        Back to ${backText}
+                    <!-- Updated Back Button: Icon only, redirects to Our Series (navigate('series')) -->
+                    <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="Back to Our Series">
+                        ${getBackIcon()}
                     </button>
 
                     <div class="flex flex-col lg:flex-row gap-10">
@@ -797,7 +818,7 @@
 
             // NEW ADVANCED SEARCH BAR STRUCTURE
             return `
-                <h1 class="text-4xl font-black mb-4 text-sky-accent text-center">My Books</h1>
+                <h1 class="text-4xl font-black mb-4 text-sky-accent text-center">Our Books</h1>
 
                 <!-- Search Bar Container (Flex for centering, max-w for desktop limit) --><div class="flex justify-center mb-10">
                     <div class="max-w-xl w-full flex justify-center">
@@ -928,8 +949,9 @@
 
             // 2. Update State
             // If navigating to a book detail page, save the origin for the back button.
-            if (page === 'book-detail' && currentBookId) {
+            if (page === 'book-detail' && id !== null) {
                 const seriesId = getSeriesIdByBookId(id);
+                // The actual back button handler will now ignore this, but we keep it to determine the active HEADER link (Series or Books)
                 backButtonRoute = { 
                     page: seriesId ? 'series-detail' : 'books', 
                     id: seriesId 
@@ -938,7 +960,7 @@
                  // If navigating to a series detail page, this becomes the *next* potential origin
                  backButtonRoute = { page: 'series-detail', id: id };
             } else if (page === 'books') {
-                // Default back route when explicitly navigating to My Books
+                // Default back route when explicitly navigating to Our Books
                 backButtonRoute = { page: 'books', id: null };
             }
 
@@ -987,7 +1009,7 @@
                 allNavLinks.forEach(link => {
                     // Determine the active link key
                     let activeKey = page;
-                    if (page === 'book-detail' && currentBookId) {
+                    if (page === 'book-detail') {
                         // If viewing a book detail, check the back route to see if it came from a series page
                         activeKey = backButtonRoute.page === 'series-detail' ? 'series' : 'books';
                     } else if (page === 'series-detail') {
@@ -1003,7 +1025,7 @@
                     }
                 });
 
-                // Special handling for My Books search bar initialization
+                // Special handling for Our Books search bar initialization
                 if (page === 'books') {
                     const searchWrapper = document.getElementById('search-bar-wrapper');
                     // Ensure search wrapper is collapsed on initial load of the books page
@@ -1046,6 +1068,7 @@
     </script>
 </body>
 </html>
+
 
 
 
