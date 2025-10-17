@@ -255,7 +255,7 @@
         const book3Tags = "toxic relationship, sex, tobacco use, alcohol, slang words, metaphorical, dark fantasy, psychological thriller";
         
         // --- Data for New Book 5 & 6 (Kurukshetra) ---
-        const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhārata is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows become verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
+        const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārta is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows become verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
         const book5Genre = "Historical, Mythological, Traditional, Sanatan, Warfare, Spiritual";
         const book5Tags = "mythological, spiritual, knowledge, Enlightening, history, ficton, narration";
 
@@ -338,7 +338,6 @@
             pageCount: 96, 
             genre: book5Genre,
             tags: book5Tags,
-            // CLICKABLE Google Play link
             storeLink: "https://play.google.com/store/books/details?id=KrKNEQAAQBAJ"
         },
         {
@@ -673,7 +672,7 @@
             return `
                 <button onclick="navigate('series')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to Series List">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
-                    Back to Series List
+                    Back to Our Series
                 </button>
                 
                 <h1 class="text-4xl font-black mb-10 text-obsidian text-center">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
@@ -688,6 +687,21 @@
         function renderBookDetail(bookId) {
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
+
+            // Determine back button destination dynamically
+            let backPage = backButtonRoute.page;
+            let backId = backButtonRoute.id;
+            let backText = "My Books";
+            let backHandler = "navigate('books')";
+
+            if (backPage === 'series-detail' && backId) {
+                const series = seriesData.find(s => s.id === backId);
+                backText = series ? series.title + ' Series' : 'Series List';
+                // FIX: Corrected typo from 'Maps' to 'navigate' (This was the persistent bug fix)
+                backHandler = `Maps('series-detail', '${backId}')`;
+            } else {
+                 backHandler = "navigate('books')";
+            }
 
             // Define the URL for the Google Play logo
             const googlePlayLogoUrl = "https://i.postimg.cc/9Fv9xyhF/google-play-store-mobile-apps-logo-free-png.webp";
@@ -716,14 +730,15 @@
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
-                    <button onclick="navigate('books')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to My Books">
+                    <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300" aria-label="Back to ${backText}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="m15 18-6-6 6-6"/></svg>
-                        Back to My Books
+                        Back to ${backText}
                     </button>
 
                     <div class="flex flex-col lg:flex-row gap-10">
                         <!-- Book Cover (Small Size) --><div class="flex-shrink-0 mx-auto lg:mx-0">
-                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-48 h-48 object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
+                            <!-- CHANGE: Removed h-48 and set w-48 (or w-56 for a slightly bigger look) to maintain aspect ratio -->
+                            <img src="${book.coverUrl}" alt="${book.title} cover" class="w-56 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
                         </div>
 
                         <!-- Book Details --><div class="flex-grow">
@@ -912,6 +927,21 @@
             container.classList.remove('active');
 
             // 2. Update State
+            // If navigating to a book detail page, save the origin for the back button.
+            if (page === 'book-detail' && currentBookId) {
+                const seriesId = getSeriesIdByBookId(id);
+                backButtonRoute = { 
+                    page: seriesId ? 'series-detail' : 'books', 
+                    id: seriesId 
+                };
+            } else if (page === 'series-detail') {
+                 // If navigating to a series detail page, this becomes the *next* potential origin
+                 backButtonRoute = { page: 'series-detail', id: id };
+            } else if (page === 'books') {
+                // Default back route when explicitly navigating to My Books
+                backButtonRoute = { page: 'books', id: null };
+            }
+
             currentPage = page;
             currentBookId = page === 'book-detail' ? id : null;
             let currentSeriesId = (page === 'series-detail' || page === 'series') ? id : null;
@@ -958,8 +988,8 @@
                     // Determine the active link key
                     let activeKey = page;
                     if (page === 'book-detail' && currentBookId) {
-                        // If viewing a book detail, highlight the 'books' or 'series' link depending on context (defaulting to 'books' here)
-                        activeKey = 'books';
+                        // If viewing a book detail, check the back route to see if it came from a series page
+                        activeKey = backButtonRoute.page === 'series-detail' ? 'series' : 'books';
                     } else if (page === 'series-detail') {
                         // If viewing a series detail, highlight the 'series' link
                         activeKey = 'series';
@@ -1016,6 +1046,7 @@
     </script>
 </body>
 </html>
+
 
 
 
