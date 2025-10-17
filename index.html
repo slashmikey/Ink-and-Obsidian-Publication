@@ -696,7 +696,7 @@
             `).join('');
 
             return `
-                <!-- Updated Back Button: Icon only, redirects to Our Books -->
+                <!-- Updated Back Button: Icon only, redirects to Our Series -->
                 <button onclick="navigate('series')" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="Back to Our Series">
                     ${getBackIcon()}
                 </button>
@@ -714,15 +714,20 @@
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
 
-            // Determine back button destination (now always simplified to go to 'books')
-            let backHandler = "navigate('books')";
+            // Determine the back button handler based on the page the user navigated from (stored in backButtonRoute)
+            let backHandler;
+            let ariaLabel;
 
-            // We need to check if the book detail was reached from a series page to redirect back to the series list page (navigate('series'))
-            // Since the request is to always redirect to the 'Our Books' webpage, we will ignore the previous page logic for the button handler, 
-            // BUT, the new request is to redirect to 'Our Series' (navigate('series')).
+            if (backButtonRoute.page === 'series-detail' || backButtonRoute.page === 'series') {
+                // If the book was accessed via the series section, go back to Our Series.
+                backHandler = "navigate('series')";
+                ariaLabel = "Back to Our Series";
+            } else {
+                // Default: if accessed via Our Books or any other page, go back to Our Books.
+                backHandler = "navigate('books')";
+                ariaLabel = "Back to Our Books";
+            }
 
-            // Let's implement the redirect to 'Our Series' (navigate('series')) as requested by the user, regardless of origin.
-            backHandler = "navigate('series')";
 
             // Define the URL for the Google Play logo
             const googlePlayLogoUrl = "https://i.postimg.cc/9Fv9xyhF/google-play-store-mobile-apps-logo-free-png.webp";
@@ -751,8 +756,8 @@
 
             return `
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
-                    <!-- Updated Back Button: Icon only, redirects to Our Series (navigate('series')) -->
-                    <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="Back to Our Series">
+                    <!-- Updated Back Button: Icon only, handler changes dynamically based on origin -->
+                    <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="${ariaLabel}">
                         ${getBackIcon()}
                     </button>
 
@@ -948,20 +953,20 @@
             container.classList.remove('active');
 
             // 2. Update State
-            // If navigating to a book detail page, save the origin for the back button.
+            // Track the immediate source page when entering a detail view
             if (page === 'book-detail' && id !== null) {
-                const seriesId = getSeriesIdByBookId(id);
-                // The actual back button handler will now ignore this, but we keep it to determine the active HEADER link (Series or Books)
-                backButtonRoute = { 
-                    page: seriesId ? 'series-detail' : 'books', 
-                    id: seriesId 
-                };
+                // Check if the source was a series detail page
+                if (currentPage === 'series' || currentPage === 'series-detail') {
+                    backButtonRoute = { page: 'series', id: null };
+                } else {
+                    // Source was 'books' or 'home'
+                    backButtonRoute = { page: 'books', id: null };
+                }
             } else if (page === 'series-detail') {
-                 // If navigating to a series detail page, this becomes the *next* potential origin
-                 backButtonRoute = { page: 'series-detail', id: id };
-            } else if (page === 'books') {
-                // Default back route when explicitly navigating to Our Books
-                backButtonRoute = { page: 'books', id: null };
+                 backButtonRoute = { page: 'series', id: id };
+            } else {
+                // For all other main pages, reset or update current page tracker
+                backButtonRoute = { page: page, id: id };
             }
 
             currentPage = page;
@@ -1010,10 +1015,10 @@
                     // Determine the active link key
                     let activeKey = page;
                     if (page === 'book-detail') {
-                        // If viewing a book detail, check the back route to see if it came from a series page
-                        activeKey = backButtonRoute.page === 'series-detail' ? 'series' : 'books';
+                        // Highlight the category the user came from
+                        activeKey = backButtonRoute.page;
                     } else if (page === 'series-detail') {
-                        // If viewing a series detail, highlight the 'series' link
+                        // Highlight the 'series' link
                         activeKey = 'series';
                     }
 
@@ -1068,6 +1073,7 @@
     </script>
 </body>
 </html>
+
 
 
 
