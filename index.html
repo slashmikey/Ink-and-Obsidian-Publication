@@ -134,6 +134,24 @@
         #book-search-input {
             padding-right: 3.5rem !important;
         }
+
+        /* --- Updated Beating Heart Animation (Smoother Pulse) --- */
+        @keyframes beat {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 0 4px rgba(255, 0, 0, 0.5); /* Soften glow */
+            }
+            50% { /* Changed 15% to 50% for smoother timing */
+                transform: scale(1.1); /* Reduced scale for subtler beat */
+                text-shadow: 0 0 8px rgba(255, 0, 0, 1); /* Sharpen glow at peak */
+            }
+        }
+        .beating-heart {
+            display: inline-block;
+            /* Changed timing function to ease-in-out for smoothness */
+            animation: beat 1.2s ease-in-out infinite; 
+            color: red; 
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -255,6 +273,10 @@
                          onerror="this.onerror=null;this.src='https://placehold.co/24x24/1f2937/ffffff?text=X';">
                 </a>
             </div>
+            <!-- NEW LINE WITH ANIMATED HEART -->
+            <p class="text-xs text-gray-700 font-semibold mt-4">
+                Made With <span class="beating-heart">❤️</span> in India
+            </p>
         </div>
     </footer>
 
