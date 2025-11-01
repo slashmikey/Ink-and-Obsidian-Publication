@@ -29,6 +29,12 @@
             font-family: 'Inter', sans-serif;
             background-color: #ffffff; /* Pure white background */
             color: #1f2937; /* Obsidian dark text */
+            /* Custom cursor removed */
+        }
+
+        /* Custom cursor for interactive elements removed */
+        a, button, .cursor-pointer, .book-card, #search-toggle-btn {
+            cursor: pointer; /* Restore standard pointer for links/buttons */
         }
 
         /* --- Custom CSS for Smooth Transitions and Animations --- */
@@ -160,11 +166,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
             
             <!-- Mobile Menu Toggle Button (LEFT SIDE on mobile) and Logo/Title -->
-            <!-- The flex-row-reverse makes the button appear first (left) on mobile -->
-            <div class="flex flex-row-reverse md:flex-row items-center justify-between w-full md:w-auto">
+            <!-- The flex-row-reverse class is removed, and order classes are added to position the menu on the far left. -->
+            <div class="flex items-center justify-between w-full md:w-auto">
                 
-                <!-- Mobile Menu Toggle Button (Hamburger) -->
-                <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200" 
+                <!-- Mobile Menu Toggle Button (Hamburger) - Now uses order-1 (far left on mobile) -->
+                <button class="md:hidden p-2 text-obsidian hover:text-sky-accent rounded-lg transition duration-200 order-1" 
                         onclick="toggleMobileMenu()" 
                         aria-label="Open mobile menu">
                     <!-- REPLACED SVG WITH IMG TAG -->
@@ -174,8 +180,8 @@
                          onerror="this.onerror=null;this.src='https://placehold.co/28x28/1f2937/ffffff?text=M';">
                 </button>
 
-                <!-- Logo & Title -->
-                <a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01] ml-0 md:ml-0 mr-auto md:mr-0">
+                <!-- Logo & Title - Now uses order-2 (next to the button on mobile) -->
+                <a href="#" onclick="navigate('home')" class="flex items-center space-x-3 transition duration-300 transform hover:scale-[1.01] order-2 ml-4 md:ml-0 mr-auto md:mr-0">
                     <!-- Logo Source updated to external link --><img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                          alt="Ink and Obsidian Logo" 
                          class="h-8 w-8 object-contain shadow-md" 
@@ -201,8 +207,8 @@
          onclick="toggleMobileMenu()">
     </div>
     
-    <!-- Mobile Sidebar Menu (Off-Canvas) --><div id="mobile-menu" 
-         class="fixed top-0 right-0 w-64 h-full bg-white shadow-2xl z-30 transform translate-x-full mobile-menu md:hidden">
+    <!-- Mobile Sidebar Menu (Off-Canvas) - Updated for Left Slide-In --><div id="mobile-menu" 
+         class="fixed top-0 left-0 w-64 h-full bg-white shadow-2xl z-30 transform -translate-x-full mobile-menu md:hidden">
         
         <!-- Close Button --><div class="p-4 flex justify-end border-b border-sky-light">
             <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200" aria-label="Close mobile menu">
@@ -273,7 +279,7 @@
                          onerror="this.onerror=null;this.src='https://placehold.co/24x24/1f2937/ffffff?text=X';">
                 </a>
             </div>
-            <!-- NEW LINE WITH ANIMATED HEART -->
+            <!-- LINE WITH ANIMATED HEART -->
             <p class="text-xs text-gray-700 font-semibold mt-4">
                 Made With <span class="beating-heart">❤️</span> in India
             </p>
@@ -554,14 +560,14 @@
                 // Show Menu
                 overlay.classList.remove('hidden', 'opacity-0');
                 overlay.classList.add('opacity-100');
-                menu.classList.remove('translate-x-full');
+                menu.classList.remove('-translate-x-full'); // UPDATED for left slide-in
                 // Prevent background scrolling
                 body.style.overflow = 'hidden';
             } else {
                 // Hide Menu
                 overlay.classList.remove('opacity-100');
                 overlay.classList.add('opacity-0');
-                menu.classList.add('translate-x-full');
+                menu.classList.add('-translate-x-full'); // UPDATED for left slide-out
                 // Re-enable background scrolling after transition
                 setTimeout(() => {
                     overlay.classList.add('hidden');
@@ -841,7 +847,7 @@
                             <img src="${book.coverUrl}" alt="${book.title} cover" class="w-56 h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform hover:scale-[1.03]" onerror="this.onerror=null;this.src='https://placehold.co/192x288/1f2937/ffffff?text=Book+Cover';" loading="lazy">
                         </div>
 
-                        <!-- Book Details --><div class="flex-grow">
+                        <!-- Book Details --><div class-="flex-grow">
                             <h2 class="text-5xl font-extrabold mb-4 text-obsidian">${book.title}</h2>
                             
                             <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
@@ -1147,6 +1153,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
