@@ -209,53 +209,72 @@
             color: red; 
         }
 
-        /* --- LOADER CSS --- */
-        .loader {
-            width: 48px;
-            height: 48px;
-            display: block;
-            margin:15px auto;
+        /* --- NEW PRIMARY LOADER CSS (Move Animation) --- */
+        .primary-loader {
+            width: 16px;
+            height: 16px;
             position: relative;
-            color: #FFF;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-        .loader::after,
-        .loader::before {
-            content: '';  
-            box-sizing: border-box;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            top: 0;
-            background-color: #FFF;
+            left: -32px;
             border-radius: 50%;
-            animation: scale50 1s infinite ease-in-out;
-        }
-        .loader::before {
-            top: auto;
-            bottom: 0;
-            background-color: #FF3D00;
-            animation-delay: 0.5s;
+            color: #1f2937; /* Dark color for visibility */
+            background: currentColor;
+            box-shadow: 32px 0 , -32px 0 ,  64px 0;
         }
 
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
+        .primary-loader::after {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 10px;
+            background:#FF3D00;
+            animation: move 3s linear infinite alternate;
+        }
+
+        @keyframes move {
+            0% , 5%{
+                left: -32px;
+                width: 16px;
             }
-            100% {
-                transform: rotate(360deg);
+            15% , 20%{
+                left: -32px;
+                width: 48px;
             }
-        } 
-        @keyframes scale50 {
-            0%, 100% {
-                transform: scale(0);
+            30% , 35%{
+                left: 0px;
+                width: 16px;
             }
-            50% {
-                transform: scale(1);
+            45% , 50%{
+                left: 0px;
+                width: 48px;
+            }
+            60% , 65%{
+                left: 32px;
+                width: 16px;
+            }
+
+            75% , 80% {
+                left: 32px;
+                width: 48px;
+            }
+            95%, 100% {
+                left: 64px;
+                width: 16px;
             }
         }
-        /* --- END LOADER CSS --- */
+        /* --- END NEW PRIMARY LOADER CSS --- */
+        
+        /* --- REMOVED AI CHAT LOADER CSS (Square-to-Dot Animation) --- */
+        
+        /* New CSS for LLM suggestion box (REMOVED) */
+        
+        /* New CSS for Share button (REMOVED) */
+
+        /* --- REMOVED VIDYA AI FLOATING CHAT STYLES --- */
+        /* All AI specific chat CSS removed */
+
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -264,7 +283,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
             
             <!-- Mobile Menu Toggle Button (LEFT SIDE on mobile) and Logo/Title -->
-            <!-- The flex-row-reverse class is removed, and order classes are added to position the menu on the far left. -->
             <div class="flex items-center justify-between w-full md:w-auto">
                 
                 <!-- Mobile Menu Toggle Button (Hamburger) - Now uses order-1 (far left on mobile) -->
@@ -326,7 +344,7 @@
     </div>
 
     <!-- Loader Overlay (Full Screen, Hidden by default) --><div id="loading-spinner-overlay" class="fixed inset-0 bg-e6f7ff/70 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <span class="loader"></span>
+        <span class="primary-loader"></span>
     </div>
 
     <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY --><main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -387,6 +405,10 @@
             </p>
         </div>
     </footer>
+
+    <!-- VIDYA AI CHAT BOX (REMOVED) -->
+    
+    <!-- VIDYA AI TOGGLE BUTTON (REMOVED) -->
 
     <!-- JavaScript Logic --><script>
         // --- Core Data & State Management ---
@@ -527,7 +549,7 @@
             id: 9,
             title: "Erotica Unplugged: The Night Fall (Paperback Version)",
             coverUrl: "https://i.postimg.cc/c4vPJRh8/1.png",
-            pdfLink: "https://drive.google.com/uc?export=download&id=1V7a_YscOuODcbHPhLQkbz00mF7J4Ae5X",
+            pdfLink: "https://drive.google.com/uc?export=download&id=1V7a_YscOuODcbHPhLQkbz00m7J4Ae5X",
             // CORRECTED DESCRIPTION
             description: "Erotica Unplugged: The Night Fall exists beyond conventional narrative boundaries—a psychological excavation disguised as dark fantasy, exploring humanity's attraction toward its own annihilation. This is not sanitized fiction. Within these pages, you'll encounter explicit sexuality, substance abuse, psychological manipulation, and transgressive content deliberately crafted to disturb comfortable sensibilities. The narrative employs sophisticated vocabulary and metaphorical darkness to examine how trauma sculpts desire, how manipulation masquerades as intimacy, and how individuals court destruction while believing they maintain control.",
             placeholder: false,
@@ -592,7 +614,7 @@
      */
     function getSeriesIdByBookId(bookId) {
         for (const series of seriesData) {
-            if (series.bookIds.includes(bookId)) {
+            if (series.bookIds.includes(book.id)) {
                 return series.id;
             }
         }
@@ -627,17 +649,10 @@
             `;
         }
         
-        /**
-         * Simple SVG for the Mail/Send icon (Lucide style)
-         */
-        function getSendIcon() {
-            return `
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-                    <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
-                    <path d="M12 12 19 5"></path>
-                </svg>
-            `;
-        }
+        // --- REMOVED: getSendIconImage() ---
+
+        // --- REMOVED: getDeleteIconImage() ---
+
 
         // SVG for the simple back arrow icon (Lucide style)
         function getBackIcon() {
@@ -647,6 +662,7 @@
                 </svg>
             `;
         }
+        
         
         /**
          * Toggles the visibility of the mobile menu sidebar and overlay.
@@ -723,6 +739,24 @@
                 messageDiv.className = 'mt-4 p-3 rounded-lg text-center hidden';
             }, 5000);
         }
+
+        // --- REMOVED GEMINI API UTILITIES (fetchWithBackoff, apiKey, API_URL, toggleLoader) ---
+        const LOADER_ID = 'loading-spinner-overlay';
+        
+        /**
+         * Utility function to show/hide the main loader.
+         * @param {boolean} show - true to show, false to hide.
+         */
+        function toggleLoader(show) {
+            const loaderOverlay = document.getElementById(LOADER_ID);
+            if (loaderOverlay) {
+                // Use the primary loader class
+                // Note: The loader element itself uses the 'primary-loader' class
+                loaderOverlay.classList.toggle('hidden', !show);
+            }
+        }
+
+        // --- REMOVED VIDYA AI CHAT LOGIC (toggleVidyaChat, addChatMessage, clearVidyaChat, handleVidyaQASubmit) ---
         
         // --- Page Content Rendering Functions ---
         function renderHome() {
@@ -803,7 +837,10 @@
 
                         <button type="submit"
                             class="w-full flex items-center justify-center bg-sky-accent text-white py-3 px-4 rounded-lg font-semibold hover:bg-sky-700 transition duration-300 shadow-lg shadow-sky-accent/30 transform hover:scale-[1.01]">
-                            ${getSendIcon()}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                                <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
+                                <path d="M12 12 19 5"></path>
+                            </svg>
                             <span class="ml-2">Send</span>
                         </button>
                     </form>
@@ -895,7 +932,7 @@
         function renderBookDetail(bookId) {
             const book = booksData.find(b => b.id === bookId);
             if (!book) return '<p class="text-center text-red-500">Book not found.</p>';
-
+            
             // Determine the back button handler based on the page the user navigated from (stored in backButtonRoute)
             let backHandler;
             let ariaLabel;
@@ -952,8 +989,10 @@
                         <!-- Book Details --><div class-="flex-grow">
                             <!-- APPLY Spinnaker to Book Title --><h2 class="text-5xl font-extrabold mb-4 text-obsidian font-heading font-spinnaker">${book.title}</h2>
                             
-                            <!-- APPLY Kalam to Description --><div class="space-y-6 text-lg text-gray-700 leading-relaxed font-kalam">
-                                <p>${book.description}</p>
+                            <!-- Multilingual Translation Button was here, now removed. -->
+
+                            <!-- APPLY Kalam to Description (Default) --><div class="space-y-6 text-lg text-gray-700 leading-relaxed font-kalam">
+                                <p id="book-description-text">${book.description}</p>
                             </div>
 
                             <!-- APPLY Spinnaker to Details Section -->
@@ -977,6 +1016,8 @@
                                 ` : ''}
                             </div>
                             
+                            <!-- Removed AI Author Q&A Form, Find Similar Reads, and AI Tagline -->
+
                             ${!book.placeholder ? `
                                 <div class="mt-8 flex items-center space-x-4 relative">
                                     <!-- 1. Get It Button (APPLY Spinnaker to text) --><a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
@@ -1139,7 +1180,28 @@
             // 2. Start Exit Animation
             container.classList.remove('active');
 
-            // 3. Wait for Exit Animation to complete before rendering new content
+            // 3. Update State
+            // Track the immediate source page when entering a detail view
+            if (page === 'book-detail' && id !== null) {
+                // Check if the source was a series detail page
+                if (currentPage === 'series' || currentPage === 'series-detail') {
+                    backButtonRoute = { page: 'series', id: null };
+                } else {
+                    // Source was 'books' or 'home'
+                    backButtonRoute = { page: 'books', id: null };
+                }
+            } else if (page === 'series-detail') {
+                 backButtonRoute = { page: 'series', id: id };
+            } else {
+                // For all other main pages, reset or update current page tracker
+                backButtonRoute = { page: page, id: id };
+            }
+
+            currentPage = page;
+            currentBookId = page === 'book-detail' ? id : null;
+            let currentSeriesId = (page === 'series-detail' || page === 'series') ? id : null;
+
+            // 4. Wait for Exit Animation to complete before rendering new content
             setTimeout(() => {
                 let htmlContent = '';
 
@@ -1173,13 +1235,13 @@
 
                 container.innerHTML = htmlContent;
 
-                // 4. Start Entry Animation
+                // 5. Start Entry Animation
                 container.classList.add('active');
                 
-                // 5. Hide Loader once content is ready to be shown
+                // 6. Hide Loader once content is ready to be shown
                 loaderOverlay.classList.add('hidden');
 
-                // 6. Update Navigation Styling
+                // 7. Update Navigation Styling
                 allNavLinks.forEach(link => {
                     // Determine the active link key
                     let activeKey = page;
@@ -1237,11 +1299,18 @@
                 }
             });
             currentPage = 'home'; // Set initial state
+            
+            // REMOVED: Initial Vidya Chat state logic
         };
 
     </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
