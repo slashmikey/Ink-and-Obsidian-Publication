@@ -208,6 +208,54 @@
             animation: beat 1.2s ease-in-out infinite; 
             color: red; 
         }
+
+        /* --- LOADER CSS --- */
+        .loader {
+            width: 48px;
+            height: 48px;
+            display: block;
+            margin:15px auto;
+            position: relative;
+            color: #FFF;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        .loader::after,
+        .loader::before {
+            content: '';  
+            box-sizing: border-box;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 0;
+            background-color: #FFF;
+            border-radius: 50%;
+            animation: scale50 1s infinite ease-in-out;
+        }
+        .loader::before {
+            top: auto;
+            bottom: 0;
+            background-color: #FF3D00;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        } 
+        @keyframes scale50 {
+            0%, 100% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+        /* --- END LOADER CSS --- */
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -275,6 +323,10 @@
             <!-- UPDATED TEXT: The Author -> The Visionary --><a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="author" onclick="handleMobileNav('author')">The Visionary</a>
             <a href="#" class="mobile-nav-link p-3 rounded-lg text-obsidian hover:bg-sky-light font-medium transition duration-200" data-page="contact" onclick="handleMobileNav('contact')">Contact Us</a>
         </nav>
+    </div>
+
+    <!-- Loader Overlay (Full Screen, Hidden by default) --><div id="loading-spinner-overlay" class="fixed inset-0 bg-e6f7ff/70 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+        <span class="loader"></span>
     </div>
 
     <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY --><main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -1079,30 +1131,13 @@
             const navLinksDesktop = document.querySelectorAll('.nav-link');
             const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
             const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
+            const loaderOverlay = document.getElementById('loading-spinner-overlay'); // Get loader
 
-            // 1. Start Exit Animation
+            // 1. Show Loader immediately upon navigation
+            loaderOverlay.classList.remove('hidden');
+
+            // 2. Start Exit Animation
             container.classList.remove('active');
-
-            // 2. Update State
-            // Track the immediate source page when entering a detail view
-            if (page === 'book-detail' && id !== null) {
-                // Check if the source was a series detail page
-                if (currentPage === 'series' || currentPage === 'series-detail') {
-                    backButtonRoute = { page: 'series', id: null };
-                } else {
-                    // Source was 'books' or 'home'
-                    backButtonRoute = { page: 'books', id: null };
-                }
-            } else if (page === 'series-detail') {
-                 backButtonRoute = { page: 'series', id: id };
-            } else {
-                // For all other main pages, reset or update current page tracker
-                backButtonRoute = { page: page, id: id };
-            }
-
-            currentPage = page;
-            currentBookId = page === 'book-detail' ? id : null;
-            let currentSeriesId = (page === 'series-detail' || page === 'series') ? id : null;
 
             // 3. Wait for Exit Animation to complete before rendering new content
             setTimeout(() => {
@@ -1140,8 +1175,11 @@
 
                 // 4. Start Entry Animation
                 container.classList.add('active');
+                
+                // 5. Hide Loader once content is ready to be shown
+                loaderOverlay.classList.add('hidden');
 
-                // 5. Update Navigation Styling
+                // 6. Update Navigation Styling
                 allNavLinks.forEach(link => {
                     // Determine the active link key
                     let activeKey = page;
