@@ -5,18 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ink and Obsidian Publications</title>
     <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- NEW: Load Merriweather Sans Font (Headings/Footer) --><link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <!-- NEW: Load Comfortaa Font (Body Text) --><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <!-- NEW: Load Spinnaker Font (Book Titles/Details) --><link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
+    <!-- NEW: Load Kalam Font (Descriptions) --><link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Configure Tailwind to use Inter font and define custom colors --><script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'sky-light': '#f0f9ff', // A very light sky blue for subtle accents
-                        'sky-accent': '#0ea5e9', // Sky 500 for buttons/links
-                        'obsidian': '#1f2937',  // Dark grey for text
-                        'dark-bg': '#121212', // Deep dark background (No longer used, but kept in config for reference)
+                        // UPDATED: Cooler Blue/Teal Scheme
+                        'sky-light': '#e6fff7', // NEW: Light Teal for subtle accents/header background
+                        'sky-accent': '#00a896', // NEW: Deep Teal for buttons/links/accents (was soft coral)
+                        'obsidian': '#1f2937',  // Dark grey for text (kept for contrast)
+                        'dark-bg': '#121212', // Deep dark background (kept)
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        // Define a new font family for headings, mapping it to 'heading' utility class
+                        heading: ['"Merriweather Sans"', 'sans-serif'],
+                        // Define Comfortaa font family for general body text
+                        comfortaa: ['"Comfortaa"', 'sans-serif'],
+                        // Define Spinnaker font family for titles and details
+                        spinnaker: ['Spinnaker', 'sans-serif'],
+                        // Define Kalam font family for descriptions
+                        kalam: ['Kalam', 'cursive'],
                     },
                 }
             }
@@ -24,10 +37,19 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        /* Import Merriweather Sans inside style block for consistency, although Link tag is primary */
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+        /* Import Comfortaa inside style block */
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+        /* Import Spinnaker inside style block */
+        @import url('https://fonts.googleapis.com/css2?family=Spinnaker&display=swap');
+        /* Import Kalam inside style block */
+        @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* Pure white background */
+            background-color: #e6f7ff; /* NEW: Light Blue background */
             color: #1f2937; /* Obsidian dark text */
             /* Custom cursor removed */
         }
@@ -87,7 +109,9 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        /* Update card background to light teal for contrast against the new body color */
         .book-card, .contact-form-card, .bio-card {
+            background-color: #e6fff7; /* NEW: Light Teal background for boxes/cards */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -97,18 +121,42 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
+        /* --- Header/Footer Rainbow Glass Animation --- */
+        @keyframes light-rainbow {
+            0% { background-color: #ccf2ff; }   /* Lighter Blue */
+            16% { background-color: #d8fffa; }  /* Lighter Teal */
+            33% { background-color: #ddffdd; }  /* Light Mint */
+            50% { background-color: #ffddff; }  /* Light Lavender */
+            66% { background-color: #f7e6ff; }  /* Light Violet */
+            83% { background-color: #ffe6e6; }  /* Light Pink */
+            100% { background-color: #ccf2ff; }
+        }
+
+        .rainbow-glass-header-footer {
+            /* Glassmorphism/Frosted Glass Effect */
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white base */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari support */
+            
+            /* Rainbow Animation */
+            animation: light-rainbow 12s infinite alternate; /* Slower, alternates direction */
+
+            /* Ensure border and shadow styles are defined over the glass effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow for definition */
+        }
         /* --- ADVANCED SEARCH ANIMATIONS --- */
+        /* Keeping Rainbow Glow but making sure the border color is visible against the new background */
 
         /* 1. Rainbow Glow Keyframe (for border) */
         @keyframes rainbow-glow {
-            0% { box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7); border-color: rgba(255, 0, 0, 0.5); }
-            14% { box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.7); border-color: rgba(255, 165, 0, 0.5); }
-            28% { box-shadow: 0 0 10px 2px rgba(255, 255, 0, 0.7); border-color: rgba(255, 255, 0, 0.5); }
+            0% { box-shadow: 0 0 10px 2px rgba(0, 168, 150, 0.7); border-color: rgba(0, 168, 150, 0.5); }
+            14% { box-shadow: 0 0 10px 2px rgba(0, 192, 192, 0.7); border-color: rgba(0, 192, 192, 0.5); }
+            28% { box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7); border-color: rgba(0, 255, 0, 0.5); }
             42% { box-shadow: 0 0 10px 2px rgba(0, 128, 0, 0.7); border-color: rgba(0, 128, 0, 0.5); }
             56% { box-shadow: 0 0 10px 2px rgba(0, 0, 255, 0.7); border-color: rgba(0, 0, 255, 0.5); }
             70% { box-shadow: 0 0 10px 2px rgba(75, 0, 130, 0.7); border-color: rgba(75, 0, 130, 0.5); }
             84% { box-shadow: 0 0 10px 2px rgba(238, 130, 238, 0.7); border-color: rgba(238, 130, 238, 0.5); }
-            100% { box-shadow: 0 0 10px 2px rgba(255, 0, 0, 0.7); border-color: rgba(255, 0, 0, 0.5); }
+            100% { box-shadow: 0 0 10px 2px rgba(0, 168, 150, 0.7); border-color: rgba(0, 168, 150, 0.5); }
         }
 
         /* 2. Mirror Shine Keyframe (Applied to the Search Icon) */
@@ -145,11 +193,13 @@
         @keyframes beat {
             0%, 100% {
                 transform: scale(1);
-                text-shadow: 0 0 4px rgba(255, 0, 0, 0.5); /* Soften glow */
+                /* Use a subtle pinkish glow that complements the new scheme */
+                text-shadow: 0 0 4px rgba(255, 153, 153, 0.5); 
             }
             50% { /* Changed 15% to 50% for smoother timing */
                 transform: scale(1.1); /* Reduced scale for subtler beat */
-                text-shadow: 0 0 8px rgba(255, 0, 0, 1); /* Sharpen glow at peak */
+                /* Sharpen glow at peak */
+                text-shadow: 0 0 8px rgba(255, 153, 153, 1); 
             }
         }
         .beating-heart {
@@ -162,7 +212,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Header / Navigation Bar --><header class="bg-sky-light sticky top-0 z-10 border-b border-sky-light/80 shadow-sm">
+    <!-- Header / Navigation Bar --><header class="rainbow-glass-header-footer sticky top-0 z-10 border-b border-gray-200 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center">
             
             <!-- Mobile Menu Toggle Button (LEFT SIDE on mobile) and Logo/Title -->
@@ -187,7 +237,7 @@
                          class="h-8 w-8 object-contain shadow-md" 
                          onerror="this.onerror=null;this.src='https://placehold.co/32x32/1f2937/ffffff?text=I&O';" 
                          loading="lazy">
-                    <span class="text-xl font-extrabold text-obsidian whitespace-nowrap">Ink & Obsidian Publications</span>
+                    <span class="text-xl font-extrabold text-obsidian whitespace-nowrap font-heading">Ink & Obsidian Publications</span>
                 </a>
             </div>
 
@@ -208,9 +258,9 @@
     </div>
     
     <!-- Mobile Sidebar Menu (Off-Canvas) - Updated for Left Slide-In --><div id="mobile-menu" 
-         class="fixed top-0 left-0 w-64 h-full bg-white shadow-2xl z-30 transform -translate-x-full mobile-menu md:hidden">
+         class="fixed top-0 left-0 w-64 h-full bg-e6fff7 shadow-2xl z-30 transform -translate-x-full mobile-menu md:hidden">
         
-        <!-- Close Button --><div class="p-4 flex justify-end border-b border-sky-light">
+        <!-- Close Button --><div class="p-4 flex justify-end border-b border-gray-200">
             <button onclick="toggleMobileMenu()" class="text-obsidian hover:text-sky-accent p-2 rounded-full transition duration-200" aria-label="Close mobile menu">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
@@ -228,7 +278,7 @@
     </div>
 
     <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY --><main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <!-- START: Initial Home Page Content (Pre-rendered) --><div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
+        <!-- START: Initial Home Page Content (Pre-rendered) --><div class="bio-card bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
             <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
                 <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                      alt="Ink and Obsidian Logo" 
@@ -236,8 +286,8 @@
                      onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
             </div>
             
-            <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian Publications</h1>
-            <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+            <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Welcome to Ink & Obsidian Publications</h1>
+            <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa">
                 <p>
                     <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
                 </p>
@@ -251,8 +301,8 @@
         </div>
         <!-- END: Initial Home Page Content --></main>
 
-    <!-- Footer --><footer class="bg-sky-light border-t border-sky-light/80 text-center py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Footer --><footer class="rainbow-glass-header-footer border-t border-gray-200 text-center py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-heading">
             <p class="text-sm font-semibold text-obsidian mb-2">
                 © 2025 Ink & Obsidian Publications. All rights reserved.
             </p>
@@ -518,7 +568,7 @@
         function getDownloadIcon() {
             return `
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-3-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
@@ -625,7 +675,7 @@
         // --- Page Content Rendering Functions ---
         function renderHome() {
             return `
-                <div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
+                <div class="bio-card bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
                     <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
                         <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                              alt="Ink and Obsidian Logo" 
@@ -633,8 +683,8 @@
                              onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
                     </div>
 
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Welcome to Ink & Obsidian Publications</h1>
-                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Welcome to Ink & Obsidian Publications</h1>
+                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa">
                         <p>
                             <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
                         </p>
@@ -651,9 +701,9 @@
 
         function renderAuthor() {
             return `
-                <div class="bio-card bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Hreeshyat Talukdar</h1>
-                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <div class="bio-card bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
+                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Hreeshyat Talukdar</h1>
+                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa">
                         <p>
                             Hreeshyat is a 19-year-old storyteller from Assam, India, with a profound passion for exploring the limitless realms of imagination. Fascinated by the power of words, he crafts stories across a variety of genres—from chilling horror and psychological thrillers to **fantasy, folklore, and emotional dramas.**
                         </p>
@@ -670,9 +720,9 @@
 
         function renderContact() {
             return `
-                <div class="contact-form-card bg-white p-6 md:p-10 rounded-2xl shadow-xl border border-sky-light max-w-xl mx-auto">
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center">Connect With Us</h1>
-                    <!-- UPDATED TEXT: Hreeshyat's email -> our official email --><p class="text-gray-600 mb-6 text-center">We'd love to hear from you. Send your message directly to our official email.</p>
+                <div class="contact-form-card bg-e6fff7 p-6 md:p-10 rounded-2xl shadow-xl border border-sky-light max-w-xl mx-auto">
+                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Connect With Us</h1>
+                    <!-- APPLY Comfortaa to general contact page body text --><p class="text-gray-600 mb-6 text-center font-comfortaa">We'd love to hear from you. Send your message directly to our official email.</p>
 
                     <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
                         <div class="space-y-2">
@@ -718,7 +768,7 @@
                 const hasDescription = series.description && series.description.trim().length > 0;
 
                 return `
-                    <div class="bio-card bg-white p-6 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto mb-10 last:mb-0">
+                    <div class="bio-card bg-e6fff7 p-6 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto mb-10 last:mb-0">
                         <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
                             <!-- Large Logo -->
                             <div class="flex-shrink-0">
@@ -730,13 +780,13 @@
                             
                             <!-- Title, Description, and Link -->
                             <div class="flex-grow text-center md:text-left pt-4">
-                                <h2 class="text-3xl font-extrabold mb-2 text-obsidian">
+                                <h2 class="text-3xl font-extrabold mb-2 text-obsidian font-heading">
                                     ${series.title}
                                 </h2>
                                 
-                                <!-- SERIES DESCRIPTION (Conditional Rendering) -->
+                                <!-- SERIES DESCRIPTION (Conditional Rendering) --><!-- APPLY Comfortaa to series description -->
                                 ${hasDescription ? `
-                                    <p class="text-gray-700 mb-4 text-sm md:text-base leading-relaxed">
+                                    <p class="text-gray-700 mb-4 text-sm md:text-base leading-relaxed font-comfortaa">
                                         ${series.description}
                                     </p>
                                 ` : '' /* Removed the placeholder text */}
@@ -753,7 +803,7 @@
             }).join('');
 
             return `
-                <h1 class="text-4xl font-black mb-10 text-sky-accent text-center">Our Series</h1>
+                <h1 class="text-4xl font-black mb-10 text-sky-accent text-center font-heading">Our Series</h1>
                 ${seriesCards}
             `;
         }
@@ -766,12 +816,12 @@
             const filteredBooks = getBooksBySeriesId(seriesId);
 
             const bookCards = filteredBooks.map(book => `
-                <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
+                <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
                     <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
-                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
-                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
                 </div>
             `).join('');
 
@@ -781,10 +831,10 @@
                     ${getBackIcon()}
                 </button>
                 
-                <h1 class="text-4xl font-black mb-10 text-obsidian text-center">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
+                <h1 class="text-4xl font-black mb-10 text-obsidian text-center font-heading">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
 
-                <!-- Book Grid (6 books per row - adjusted to automatically fit content) -->
-                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                <!-- Book Grid (6 books per row - adjusted to automatically fit content) --><!-- APPLY Comfortaa to general text and Spinnaker to titles -->
+                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 font-comfortaa">
                     ${bookCards}
                 </div>
             `;
@@ -826,7 +876,7 @@
                 storeButton = `
                     <${tagType} ${hrefAttr}
                         title="${isClickable ? 'View on Google Play Books' : 'Store link coming soon'}"
-                        class="inline-flex items-center justify-center bg-white border-2 border-sky-accent text-sky-accent p-2 rounded-full font-bold text-lg transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] ${cursorClass}">
+                        class="inline-flex items-center justify-center bg-e6fff7 border-2 border-sky-accent text-sky-accent p-2 rounded-full font-bold text-lg transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] ${cursorClass}">
                         <img src="${googlePlayLogoUrl}" alt="Google Play Books Logo" class="w-8 h-8 object-contain rounded-full">
                     </${tagType}>
                 `;
@@ -835,7 +885,7 @@
             // Share Button HTML removal confirmed
 
             return `
-                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
+                <div class="bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-5xl mx-auto">
                     <!-- Updated Back Button: Icon only, handler changes dynamically based on origin -->
                     <button onclick="${backHandler}" class="flex items-center text-sky-accent hover:text-sky-700 font-semibold mb-6 transition duration-300 p-2 rounded-full" aria-label="${ariaLabel}">
                         ${getBackIcon()}
@@ -848,13 +898,14 @@
                         </div>
 
                         <!-- Book Details --><div class-="flex-grow">
-                            <h2 class="text-5xl font-extrabold mb-4 text-obsidian">${book.title}</h2>
+                            <!-- APPLY Spinnaker to Book Title --><h2 class="text-5xl font-extrabold mb-4 text-obsidian font-heading font-spinnaker">${book.title}</h2>
                             
-                            <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                            <!-- APPLY Kalam to Description --><div class="space-y-6 text-lg text-gray-700 leading-relaxed font-kalam">
                                 <p>${book.description}</p>
                             </div>
 
-                            <div class="mt-4 space-y-1">
+                            <!-- APPLY Spinnaker to Details Section -->
+                            <div class="mt-4 space-y-1 font-spinnaker">
                                 <!-- Display Total Pages -->${book.pageCount ? `
                                     <p class="text-lg font-semibold text-obsidian">
                                         Total Pages: <span class="text-sky-accent">${book.pageCount}</span>
@@ -876,8 +927,8 @@
                             
                             ${!book.placeholder ? `
                                 <div class="mt-8 flex items-center space-x-4 relative">
-                                    <!-- 1. Get It Button --><a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
-                                        class="inline-flex items-center bg-sky-accent text-white py-3 px-6 rounded-lg font-bold text-lg hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05]">
+                                    <!-- 1. Get It Button (APPLY Spinnaker to text) --><a href="${book.pdfLink}" target="_blank" rel="noopener noreferrer"
+                                        class="inline-flex items-center bg-sky-accent text-white py-3 px-6 rounded-lg font-bold text-lg hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] font-spinnaker">
                                         ${getDownloadIcon()}
                                         Get It
                                     </a>
@@ -892,18 +943,18 @@
 
         function renderBooks(filteredBooks = booksData) {
             const bookCards = filteredBooks.map(book => `
-                <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
+                <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
                     <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
-                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
-                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
                 </div>
             `).join('');
 
             // NEW ADVANCED SEARCH BAR STRUCTURE
             return `
-                <h1 class="text-4xl font-black mb-4 text-sky-accent text-center">Our Books</h1>
+                <h1 class="text-4xl font-black mb-4 text-sky-accent text-center font-heading">Our Books</h1>
 
                 <!-- Search Bar Container (Flex for centering, max-w for desktop limit) --><div class="flex justify-center mb-10">
                     <div class="max-w-xl w-full flex justify-center">
@@ -911,7 +962,7 @@
                             
                             <!-- Input Field: Absolute positioning to expand left from the button --><input type="text" id="book-search-input" oninput="filterBooks(this.value)"
                                 class="absolute right-0 h-full p-3 pl-6 pr-16 border-2 border-sky-light rounded-full text-lg opacity-0 w-0 input-focus 
-                                       transition-all duration-500 ease-in-out bg-white"
+                                       transition-all duration-500 ease-in-out bg-e6fff7"
                                 placeholder="Search titles..."
                                 aria-label="Search book titles">
                             
@@ -925,7 +976,7 @@
                     </div>
                 </div>
 
-                <!-- Book Grid (6 books per row - adjusted to automatically fit content) --><div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                <!-- Book Grid (6 books per row - adjusted to automatically fit content) --><div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 font-comfortaa">
                     ${bookCards}
                 </div>
             `;
@@ -955,12 +1006,12 @@
             const bookGrid = document.getElementById('book-grid');
 
             const filteredCards = results.map(book => `
-                <div class="book-card bg-white p-4 rounded-xl text-center cursor-pointer border border-sky-light"
+                <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
                     <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
-                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/f0f9ff/101010?text=I&O';" loading="lazy">
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
-                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian">${book.title}</p>
+                    <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
                 </div>
             `).join('');
 
@@ -1153,6 +1204,7 @@
     </script>
 </body>
 </html>
+
 
 
 
