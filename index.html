@@ -209,7 +209,7 @@
             color: red; 
         }
 
-        /* --- NEW PRIMARY LOADER CSS (Move Animation) --- */
+        /* --- PRIMARY LOADER CSS (Move Animation) --- */
         .primary-loader {
             width: 16px;
             height: 16px;
@@ -264,17 +264,10 @@
                 width: 16px;
             }
         }
-        /* --- END NEW PRIMARY LOADER CSS --- */
+        /* --- END PRIMARY LOADER CSS --- */
         
-        /* --- REMOVED AI CHAT LOADER CSS (Square-to-Dot Animation) --- */
+        /* --- REMOVED BOOK IMAGE LOADER CSS (OLD) --- */
         
-        /* New CSS for LLM suggestion box (REMOVED) */
-        
-        /* New CSS for Share button (REMOVED) */
-
-        /* --- REMOVED VIDYA AI FLOATING CHAT STYLES --- */
-        /* All AI specific chat CSS removed */
-
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -406,10 +399,6 @@
         </div>
     </footer>
 
-    <!-- VIDYA AI CHAT BOX (REMOVED) -->
-    
-    <!-- VIDYA AI TOGGLE BUTTON (REMOVED) -->
-
     <!-- JavaScript Logic --><script>
         // --- Core Data & State Management ---
 
@@ -432,7 +421,7 @@
         const book3Tags = "toxic relationship, sex, tobacco use, alcohol, slang words, metaphorical, dark fantasy, psychological thriller";
         
         // --- Data for New Book 5 & 6 (Kurukshetra) ---
-        const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārta is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows become verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
+        const book5Description = "In the unfathomable depths of time, where myth and history converge, stands the war of Kurukṣhetra—an eternal theatre of duty, despair, valor, and divine purpose. My 18 Perspectives of Kurukṣhetra – A Barbarik’s Narration of Mahābhābhārta is not merely a retelling of that immortal epic, but a philosophical excavation through the eyes of one who saw all—Barbarik, the silent spectator whose gaze transcended mortality and illusion alike. In these eighteen narrations—each corresponding to the eighteen fateful days of war—the battlefield becomes both a stage and a scripture. Through Barbarik’s vision, blood and dharma intertwine; arrows becomes verses, and the slain are transformed into eternal metaphors of human choice. This work seeks not to glorify violence, but to reveal the invisible philosophies veiled within it—the trembling balance between righteousness and ruin, action and consequence, faith and futility.";
         const book5Genre = "Historical, Mythological, Traditional, Sanatan, Warfare, Spiritual";
         const book5Tags = "mythological, spiritual, knowledge, Enlightening, history, ficton, narration";
 
@@ -440,6 +429,9 @@
         const book7Description = "Silent Echoes From The Dark World (Vol–02) by Hreeshyat Talukdar is a descent into the macabre realm of folklore, tragedy, and psychological torment—crafted for readers who crave horror in its most unfiltered and literary form. Bending ancient myths with visceral modern storytelling, the collection resurrects monstrous tales from across the world: the vengeful whistle of El Silbón, the cannibalistic hunger of the Wendigo, the merciless duality of the Slavic Yaga, the beguiling Jorōgumo who weaves death through desire, and the blood-soaked laments of Strzyga and Vucodlak. Each story delves into the intersection of superstition and sanity, revealing not only the terrors of the supernatural but also the horrors concealed within human nature. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above.";
         const book7Genre = "Horror, Supernatural, Dark Fantasy, Traditional Folklore, 18+, Gore";
         const book7Tags = "brutality, cuss words, vulgar slangs, 18+, sexuality, psychological, mental torture";
+        
+        // --- NEW BOOK DATA ---
+        const mayong1Description = "Mayong stirs where history’s bones lie closest to the skin of Assam—a haunted vestibule where time unspools and the shadows of dynasties thicken like monsoon clouds. In this first chapter of The Mayong Times, we descend into the heart of the Ahom Era, when kingdoms triumphed and faltered not only by the sword, but through clandestine pacts inked in blood and ash, half-remembered by priests and feared by princes. This chapter is offered not as a sterile chronicle, but as a living document—each segment a lantern swinging through corridors where the mundane collides with the monstrous, and where grief, vengeance, and hope tangle with the supernatural. Here, black-magic isn’t mere folklore: it is history’s secret mortar, binding descendants and sovereigns to creatures both terrifying and familiar—Baak, Jokhini, Bira, and Ghorapak—Mayong’s own impossible progeny and wardens.";
 
 
         const booksData = [{
@@ -571,6 +563,38 @@
             tags: "LGBTQ, toxic relationship, tobacco Use, drugs, slangs, metaphorical, suspense, thriller",
             // ACTIVATING GOOGLE PLAY LINK FOR BOOK 10
             storeLink: "https://play.google.com/store/books/details?id=2Z-TEQAAQBAJ"
+        },
+        // --- Book 11 (Paperback) - UPDATED description
+        {
+            id: 11,
+            title: "The Mayong Times-Chapter: One (Paperback Version)",
+            // Retaining the previous paperback cover URL for ID 11
+            coverUrl: "https://i.postimg.cc/wM2TRcbK/1.png", 
+            pdfLink: "https://drive.google.com/uc?export=download&id=1cR498dls6v-eLicF5E9_SXHUCXMrBv00",
+            description: mayong1Description,
+            placeholder: false,
+            pageCount: 32, 
+            genre: "Historical, Fictional, Traditional, Horror, Dark Psychological, Dark Humor",
+            tags: "historical, young adult fiction, black magic, rituals, witchcraft, cultural, savior, satire",
+            storeLink: null // Paperback version
+        },
+        // --- NEW BOOK: The Mayong Times - Chapter One (ID 12) - DIGITAL VERSION ---
+        {
+            id: 12,
+            // Changed title to reflect digital format (RTF) to match Non-Paperback logic
+            title: "The Mayong Times-Chapter: One (RTF Version)", 
+            // NEW Cover URL
+            coverUrl: "https://i.postimg.cc/XNLsYB7H/image.png",
+            // NEW PDF Link
+            pdfLink: "https://drive.google.com/uc?export=download&id=1sELUybvZwAevGxJc5cSJ94tGsUtNkXij", 
+            description: mayong1Description,
+            placeholder: false,
+            // NEW Page Count
+            pageCount: 19, 
+            genre: "Historical, Fictional, Traditional, Horror, Dark Psychological, Dark Humor",
+            tags: "historical, young adult fiction, black magic, rituals, witchcraft, cultural, savior, satire",
+            // SETTING STORE LINK TO '#inactive' TO DISPLAY ICON BUT DISABLE CLICKING
+            storeLink: '#inactive' 
         }
     ];
 
@@ -593,7 +617,14 @@
             // --- ADDED NEW BOOK ID 9 & 10 ---
             bookIds: [3, 4, 9, 10],
         },
-        // REMOVED 'kurukshetra' SERIES ENTRY
+        // --- NEW SERIES ADDITION ---
+        {
+            id: 'mayong-times',
+            title: 'The Mayong Times',
+            seriesLogo: 'https://i.postimg.cc/cLmysb3P/The-Mayong-Times.png',
+            description: "The Mayong Times is a searing chronicle of Assam’s infamous black-magic heartland, Mayong—where history pulses with primal dread and every ritual is an invocation to forces both awe-inspiring and catastrophic. Across four tumultuous chapters, the series surges through eras swathed in betrayal, vengeance, and arcane lust: the regal Ahom dynasty, colonial devastation, liberation’s aftermath, and the feverish specter of modernity. Each chapter, split into cinematic segments, unleashes a torrent of visceral storytelling, emboldened by forgotten covenants and immortal guardians—Baak, Jokhini, Bira, and Ghorapak. Here, the haunted and the hopeful collide; grief and power breed legends that burn through generations. This is not history rendered docile, but narrative as incantation—crepuscular, subversive, and unforgettable. The Mayong Times pierces the marrow of Assam’s darkest traditions, daring the reader to witness magic’s triumphs—and its staggering costs—with eyes unflinching and heart laid bare.",
+            bookIds: [11, 12], // UPDATED to include both versions
+        }
     ];
 
     /**
@@ -642,18 +673,13 @@
         function getDownloadIcon() {
             return `
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-3-2v-4"></path>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
                     <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
             `;
         }
         
-        // --- REMOVED: getSendIconImage() ---
-
-        // --- REMOVED: getDeleteIconImage() ---
-
-
         // SVG for the simple back arrow icon (Lucide style)
         function getBackIcon() {
             return `
@@ -740,7 +766,6 @@
             }, 5000);
         }
 
-        // --- REMOVED GEMINI API UTILITIES (fetchWithBackoff, apiKey, API_URL, toggleLoader) ---
         const LOADER_ID = 'loading-spinner-overlay';
         
         /**
@@ -756,7 +781,6 @@
             }
         }
 
-        // --- REMOVED VIDYA AI CHAT LOGIC (toggleVidyaChat, addChatMessage, clearVidyaChat, handleVidyaQASubmit) ---
         
         // --- Page Content Rendering Functions ---
         function renderHome() {
@@ -836,7 +860,7 @@
                         </div>
 
                         <button type="submit"
-                            class="w-full flex items-center justify-center bg-sky-accent text-white py-3 px-4 rounded-lg font-semibold hover:bg-sky-700 transition duration-300 shadow-lg shadow-sky-accent/30 transform hover:scale-[1.01]">
+                            class="w-full flex items-center justify-center bg-sky-accent text-white py-3 px-4 rounded-lg font-semibold hover:bg-sky-700 transition duration-300 shadow-lg shadow-sky-accent/40 transform hover:scale-[1.01]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                                 <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
                                 <path d="M12 12 19 5"></path>
@@ -907,12 +931,25 @@
             const bookCards = filteredBooks.map(book => `
                 <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
-                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                    
+                    <!-- Book Cover - Reverted to direct image load, no custom loader wrapper -->
+                    <img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md mb-3"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
                     <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
                 </div>
             `).join('');
+            
+            // Display message if no books are linked
+            const booksContent = filteredBooks.length > 0 ? `
+                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 font-comfortaa">
+                    ${bookCards}
+                </div>
+            ` : `
+                <p class="text-center text-lg text-gray-600 p-10 font-comfortaa">
+                    The first book in the **${series.title}** series is currently being prepared for publication. Please check back soon!
+                </p>
+            `;
 
             return `
                 <!-- Updated Back Button: Icon only, redirects to Our Series -->
@@ -923,9 +960,7 @@
                 <h1 class="text-4xl font-black mb-10 text-obsidian text-center font-heading">Books in the <span class="text-sky-accent">${series.title}</span> Series</h1>
 
                 <!-- Book Grid (6 books per row - adjusted to automatically fit content) --><!-- APPLY Comfortaa to general text and Spinnaker to titles -->
-                <div id="book-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 font-comfortaa">
-                    ${bookCards}
-                </div>
+                ${booksContent}
             `;
         }
 
@@ -953,18 +988,32 @@
 
             // Conditionally render the store link button using the logo
             let storeButton = '';
-
-            // Logic: Show the icon if storeLink is not null (Paperback uses null to hide).
+            
+            // Check if storeLink is present and not null
             if (book.storeLink !== null) {
+                
                 // Determine if it's a clickable link or a static button
                 const isClickable = typeof book.storeLink === 'string' && book.storeLink.startsWith('http');
+                
+                // Check for the specific inactive flag
+                const isInactive = book.storeLink === '#inactive';
+
                 const tagType = isClickable ? 'a' : 'button';
-                const hrefAttr = isClickable ? `href="${book.storeLink}" target="_blank" rel="noopener noreferrer"` : 'onclick="return false;"';
-                const cursorClass = isClickable ? 'cursor-pointer hover:bg-sky-light' : 'cursor-default opacity-50';
+                
+                // If inactive, prevent navigation and set cursor to default
+                const hrefAttr = isInactive ? 'onclick="return false;"' : 
+                                 (isClickable ? `href="${book.storeLink}" target="_blank" rel="noopener noreferrer"` : 'onclick="return false;"');
+                
+                const cursorClass = isInactive ? 'cursor-default opacity-50' : 
+                                    (isClickable ? 'cursor-pointer hover:bg-sky-light' : 'cursor-default opacity-50');
+                
+                const titleText = isInactive ? 'Store link coming soon' : 
+                                  (isClickable ? 'View on Google Play Books' : 'Store link coming soon');
+
 
                 storeButton = `
                     <${tagType} ${hrefAttr}
-                        title="${isClickable ? 'View on Google Play Books' : 'Store link coming soon'}"
+                        title="${titleText}"
                         class="inline-flex items-center justify-center bg-e6fff7 border-2 border-sky-accent text-sky-accent p-2 rounded-full font-bold text-lg transition duration-300 shadow-xl shadow-sky-accent/40 transform hover:scale-[1.05] ${cursorClass}">
                         <img src="${googlePlayLogoUrl}" alt="Google Play Books Logo" class="w-8 h-8 object-contain rounded-full">
                     </${tagType}>
@@ -1038,7 +1087,9 @@
             const bookCards = filteredBooks.map(book => `
                 <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
-                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                    
+                    <!-- Book Cover - Reverted to standard HTML structure -->
+                    <img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
                     <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
@@ -1101,7 +1152,9 @@
             const filteredCards = results.map(book => `
                 <div class="book-card bg-e6fff7 p-4 rounded-xl text-center cursor-pointer border border-sky-light"
                     onclick="navigate('book-detail', ${book.id})">
-                    <!-- Book Cover --><img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
+                    
+                    <!-- Book Cover - Reverted to standard HTML structure -->
+                    <img src="${book.coverUrl}" alt="${book.title} cover" class="w-full h-auto object-cover rounded-lg mx-auto shadow-md"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x225/1f2937/ffffff?text=I&O';" loading="lazy">
 
                     <!-- Title --><p class="mt-3 text-sm font-semibold text-obsidian font-spinnaker">${book.title}</p>
