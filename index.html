@@ -266,8 +266,16 @@
         }
         /* --- END PRIMARY LOADER CSS --- */
         
-        /* --- REMOVED BOOK IMAGE LOADER CSS (OLD) --- */
-        
+        /* --- Contact Form Specific Styles for focus and input aesthetics --- */
+        .input-contact-focus:focus {
+            border-color: theme('colors.sky-accent') !important;
+            box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.3); /* Custom focus ring */
+            outline: none;
+            background-color: white;
+        }
+        .input-contact-focus {
+            background-color: #f0fdfa; /* Slightly off-white background */
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -723,6 +731,16 @@
                 </svg>
             `;
         }
+
+        // SVG for the Mail icon (Lucide style)
+        function getMailIcon() {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"></path>
+                </svg>
+            `;
+        }
         
         
         /**
@@ -983,45 +1001,54 @@
 
         function renderContact() {
             return `
-                <div class="contact-form-card bg-e6fff7 p-6 md:p-10 rounded-2xl shadow-xl border border-sky-light max-w-xl mx-auto">
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Connect With Us</h1>
-                    <!-- APPLY Comfortaa to general contact page body text --><p class="text-gray-600 mb-6 text-center font-comfortaa">We'd love to hear from you. Send your message directly to our official email.</p>
+                <div class="contact-form-card bg-white p-6 md:p-10 rounded-2xl shadow-2xl border-t-4 border-sky-accent max-w-xl mx-auto transform hover:shadow-sky-accent/30 transition duration-300">
+                    <h1 class="text-4xl font-black mb-2 text-obsidian text-center font-heading">
+                        Get In Touch
+                    </h1>
+                    <p class="text-gray-600 mb-8 text-center font-comfortaa text-sm border-b border-gray-200 pb-4">
+                        We welcome all inquiries, feedback, and collaboration proposals.
+                    </p>
 
-                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                        
+                        <!-- Name Input (Group) -->
                         <div class="space-y-2">
-                            <label for="name" class="block text-sm font-medium text-obsidian">Your Name</label>
+                            <label for="name" class="block text-sm font-bold text-obsidian font-heading">Your Name</label>
                             <input type="text" id="name" name="name" required
-                                class="w-full p-3 border border-gray-300 rounded-lg input-focus transition duration-200">
+                                class="w-full p-3 border border-gray-300 rounded-lg input-contact-focus transition duration-200 placeholder-gray-400">
                         </div>
 
+                        <!-- Email Input (Group) -->
                         <div class="space-y-2">
-                            <label for="email" class="block text-sm font-medium text-obsidian">Your Email</label>
+                            <label for="email" class="block text-sm font-bold text-obsidian font-heading">Your Email</label>
                             <input type="email" id="email" name="email" required
-                                class="w-full p-3 border border-gray-300 rounded-lg input-focus transition duration-200">
+                                class="w-full p-3 border border-gray-300 rounded-lg input-contact-focus transition duration-200 placeholder-gray-400">
                         </div>
 
+                        <!-- Subject Input (Group) -->
                         <div class="space-y-2">
-                            <label for="subject" class="block text-sm font-medium text-obsidian">Subject</label>
+                            <label for="subject" class="block text-sm font-bold text-obsidian font-heading">Subject</label>
                             <input type="text" id="subject" name="subject" required
-                                class="w-full p-3 border border-gray-300 rounded-lg input-focus transition duration-200">
+                                class="w-full p-3 border border-gray-300 rounded-lg input-contact-focus transition duration-200 placeholder-gray-400">
                         </div>
 
+                        <!-- Message Textarea (Group) -->
                         <div class="space-y-2">
-                            <label for="message" class="block text-sm font-medium text-obsidian">Message</label>
+                            <label for="message" class="block text-sm font-bold text-obsidian font-heading">Message</label>
                             <textarea id="message" name="message" rows="5" required
-                                class="w-full p-3 border border-gray-300 rounded-lg input-focus transition duration-200"></textarea>
+                                class="w-full p-3 border border-gray-300 rounded-lg input-contact-focus transition duration-200 placeholder-gray-400"></textarea>
                         </div>
 
+                        <!-- Submit Button (Enhanced Style) -->
                         <button type="submit"
-                            class="w-full flex items-center justify-center bg-sky-accent text-white py-3 px-4 rounded-lg font-semibold hover:bg-sky-700 transition duration-300 shadow-lg shadow-sky-accent/40 transform hover:scale-[1.01]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-                                <path d="m22 2-7 20-4-9-9-4 20-7z"></path>
-                                <path d="M12 12 19 5"></path>
-                            </svg>
-                            <span class="ml-2">Send</span>
+                            class="w-full flex items-center justify-center bg-sky-accent text-white py-3 px-4 rounded-xl font-bold text-lg font-heading
+                                   hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/50 transform hover:scale-[1.01] active:scale-[0.99] active:shadow-none">
+                            ${getMailIcon()}
+                            Send Message
                         </button>
                     </form>
 
+                    <!-- Message Feedback Area -->
                     <div id="contact-message" class="mt-4 p-3 rounded-lg text-center hidden"></div>
                 </div>
             `;
