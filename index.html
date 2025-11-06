@@ -276,6 +276,20 @@
         .input-contact-focus {
             background-color: #f0fdfa; /* Slightly off-white background */
         }
+        
+        /* New Hero animation for Home page */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(0, 168, 150, 0.2), 0 0 5px rgba(0, 168, 150, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(0, 168, 150, 0.4), 0 0 10px rgba(0, 168, 150, 0.2);
+            }
+        }
+        .hero-glow {
+            animation: pulse-glow 4s infinite ease-in-out alternate;
+        }
+
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -956,25 +970,76 @@
         // --- Page Content Rendering Functions ---
         function renderHome() {
             return `
-                <div class="bio-card bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
-                    <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
+                <!-- Hero Section: Logo, Mission Statement, and CTA -->
+                <div class="bio-card bg-e6fff7 p-8 md:p-16 rounded-3xl shadow-2xl border-4 border-sky-light max-w-5xl mx-auto text-center hero-glow">
+                    
+                    <!-- Title/Logo Area -->
+                    <div class="flex flex-col items-center mb-8">
+                        <!-- Main Logo -->
                         <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
                              alt="Ink and Obsidian Logo" 
-                             class="h-32 w-32 object-contain" 
-                             onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
+                             class="h-28 w-28 object-contain mb-4 transition duration-500 transform hover:scale-105" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/112x112/1f2937/ffffff?text=I&O';">
+                        
+                        <!-- Primary Heading -->
+                        <h1 class="text-5xl md:text-6xl font-black text-obsidian font-heading leading-tight">
+                            Ink & Obsidian
+                        </h1>
+                        <!-- Tagline -->
+                        <p class="text-xl md:text-2xl font-comfortaa text-sky-accent font-semibold mt-2 border-b-2 border-sky-light pb-2">
+                            Where Shadows Meet the Ink.
+                        </p>
+                    </div>
+                    
+                    <!-- Core Mission Statement -->
+                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa max-w-3xl mx-auto">
+                        <p>
+                            **Ink & Obsidian Publications** is an independent imprint dedicated to crafting stories in their **purest, most visceral form**. We explore the full spectrum of literature—from the chilling depths of psychological horror and dark folklore to the vast expanses of fantasy and heartwarming drama.
+                        </p>
+                        <p>
+                            Our name embodies our philosophy: **Ink** represents timeless creativity and tradition; **Obsidian** symbolizes transformation and the reflective quality of dark, challenging truths.
+                        </p>
                     </div>
 
-                    <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Welcome to Ink & Obsidian Publications</h1>
-                    <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa">
-                        <p>
-                            <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
-                        </p>
-                        <p>
-                            The name “Ink & Obsidian” symbolizes creativity and depth: ink as the timeless medium of expression, and obsidian as a stone of transformation, reflecting the wide spectrum of stories waiting to be told.
-                        </p>
-                        <p>
-                            As a small but passionate publisher, Ink & Obsidian Publications values originality, imagination, and the courage to explore diverse genres. Its mission is to craft books that captivate, challenge, and resonate with readers worldwide — whether through the chill of a dark tale, the warmth of an emotional journey, or the excitement of an unexpected adventure.
-                        </p>
+                    <!-- Call to Action Buttons -->
+                    <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                        <button onclick="navigate('series')"
+                                class="bg-sky-accent text-white py-3 px-8 rounded-xl font-bold text-lg hover:bg-sky-700 transition duration-300 shadow-xl shadow-sky-accent/50 transform hover:scale-[1.05] font-spinnaker">
+                            Explore Our Series
+                        </button>
+                        <button onclick="navigate('books')"
+                                class="bg-white text-sky-accent border-2 border-sky-accent py-3 px-8 rounded-xl font-bold text-lg hover:bg-sky-light transition duration-300 shadow-lg transform hover:scale-[1.05] font-spinnaker">
+                            View All Books
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Secondary Content Section (Optional, but adds structure) -->
+                <div class="mt-16 text-center">
+                    <h2 class="text-3xl font-heading font-bold text-obsidian mb-8">What We Stand For</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        
+                        <!-- Value 1: Originality -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-sky-accent hover:shadow-2xl transition duration-300">
+                            <span class="text-4xl text-sky-accent mb-3 block">✨</span>
+                            <h3 class="text-xl font-heading font-semibold text-obsidian mb-2">Unflinching Originality</h3>
+                            <p class="text-gray-600 text-sm font-comfortaa">We prioritize unique voices and stories that dare to challenge genre boundaries and established narratives.</p>
+                        </div>
+                        
+                        <!-- Value 2: Depth -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-sky-accent hover:shadow-2xl transition duration-300">
+                            <span class="text-4xl text-sky-accent mb-3 block">🧠</span>
+                            <h3 class="text-xl font-heading font-semibold text-obsidian mb-2">Psychological Depth</h3>
+                            <p class="text-gray-600 text-sm font-comfortaa">Our works delve into the human mind, exploring themes of morality, trauma, and complex emotional landscapes.</p>
+                        </div>
+
+                        <!-- Value 3: Global Folklore -->
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-sky-accent hover:shadow-2xl transition duration-300">
+                            <span class="text-4xl text-sky-accent mb-3 block">📜</span>
+                            <h3 class="text-xl font-heading font-semibold text-obsidian mb-2">Folklore Reborn</h3>
+                            <p class="text-gray-600 text-sm font-comfortaa">Resurrecting traditional myths and folk beliefs from India, Europe, and Asia for modern, mature audiences.</p>
+                        </div>
+                        
                     </div>
                 </div>
             `;
