@@ -362,29 +362,19 @@
         <span class="primary-loader"></span>
     </div>
 
-    <!-- Main Content Area - PRE-RENDERED HOME PAGE FOR IMMEDIATE VISIBILITY --><main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <!-- START: Initial Home Page Content (Pre-rendered) --><div class="bio-card bg-e6fff7 p-8 md:p-12 rounded-2xl shadow-xl border border-sky-light max-w-4xl mx-auto">
-            <!-- Logo added here, centered and larger (h-32 w-32) --><div class="flex justify-center mb-6">
-                <img src="https://i.postimg.cc/D0wkKkbS/Ink-Obsidian-Publications-main-logo.png"
-                     alt="Ink and Obsidian Logo" 
-                     class="h-32 w-32 object-contain" 
-                     onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=I&O';">
-            </div>
-            
-            <h1 class="text-4xl font-black mb-6 text-sky-accent text-center font-heading">Welcome to Ink & Obsidian Publications</h1>
-            <div class="space-y-6 text-lg text-gray-700 leading-relaxed font-comfortaa">
-                <p>
-                    <strong>Ink & Obsidian Publications</strong> is an independent publishing imprint founded in 2025 with a commitment to storytelling in its purest form. From the eerie and haunting to the heartfelt and inspiring, the imprint embraces every shade of literature — **fantasy, thriller, romance, mystery, science fiction, folklore, and beyond.**
-                </p>
-                <p>
-                    The name “Ink & Obsidian” symbolizes creativity and depth: ink as the timeless medium of expression, and obsidian as a stone of transformation, reflecting the wide spectrum of stories waiting to be told.
-                </p>
-                <p>
-                    As a small but passionate publisher, Ink & Obsidian Publications values originality, imagination, and the courage to explore diverse genres. Its mission is to craft books that captivate, challenge, and resonate with readers worldwide — whether through the chill of a dark tale, the warmth of an emotional journey, or the excitement of an unexpected adventure.
-                </p>
-            </div>
-        </div>
-        <!-- END: Initial Home Page Content --></main>
+    <!-- Main Content Area - RENDERED HOME PAGE ON LOAD -->
+    <main id="content-container" class="page-content active flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Initial content is set by renderHome() on load. This ensures the new UI is displayed immediately. -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('content-container');
+                if (container) {
+                    container.innerHTML = renderHome();
+                    container.classList.add('active'); // Ensure initial fade-in starts
+                }
+            });
+        </script>
+    </main>
 
     <!-- Footer --><footer class="rainbow-glass-header-footer border-t border-gray-200 text-center py-6 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-heading">
@@ -1659,7 +1649,7 @@
 
         // Initialize the page on load
         window.onload = () => {
-            // 1. The 'home' content is pre-rendered. Ensure nav reflects 'home' as active.
+            // 1. Ensure the 'home' link is active on initial load.
             const navLinksDesktop = document.querySelectorAll('.nav-link');
             const navLinksMobile = document.querySelectorAll('.mobile-nav-link');
             const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
@@ -1673,7 +1663,8 @@
             });
             currentPage = 'home'; // Set initial state
             
-            // REMOVED: Initial Vidya Chat state logic
+            // NOTE: The content is now initialized via the DOMContentLoaded listener, 
+            // ensuring renderHome() runs as early as possible.
         };
 
     </script>
