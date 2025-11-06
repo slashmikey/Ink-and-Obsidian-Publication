@@ -8,15 +8,15 @@
     <!-- NEW: Load Merriweather Sans Font (Headings/Footer) --><link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <!-- NEW: Load Comfortaa Font (Body Text) --><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
     <!-- NEW: Load Spinnaker Font (Book Titles/Details) --><link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
-    <!-- NEW: Load Kalam Font (Descriptions) --><link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- NEW: Load Kalam Font (Descriptions) --><link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700;700italic&display=swap" rel="stylesheet">
     <!-- Configure Tailwind to use Inter font and define custom colors --><script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         // UPDATED: Cooler Blue/Teal Scheme
-                        'sky-light': '#e6fff7', // NEW: Light Teal for subtle accents/header background
-                        'sky-accent': '#00a896', // NEW: Deep Teal for buttons/links/accents (was soft coral)
+                        'sky-light': '#e6fff7', // Light Teal for subtle accents/header background
+                        'sky-accent': '#00a896', // Deep Teal for buttons/links/accents (was soft coral)
                         'obsidian': '#1f2937',  // Dark grey for text (kept for contrast)
                         'dark-bg': '#121212', // Deep dark background (kept)
                     },
@@ -49,7 +49,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #e6f7ff; /* NEW: Light Blue background */
+            background-color: #e6f7ff; /* Light Blue background */
             color: #1f2937; /* Obsidian dark text */
             /* Custom cursor removed */
         }
@@ -111,7 +111,7 @@
 
         /* Update card background to light teal for contrast against the new body color */
         .book-card, .contact-form-card, .bio-card {
-            background-color: #e6fff7; /* NEW: Light Teal background for boxes/cards */
+            background-color: #e6fff7; /* Light Teal background for boxes/cards */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
@@ -289,6 +289,25 @@
         .hero-glow {
             animation: pulse-glow 4s infinite ease-in-out alternate;
         }
+        
+        /* Custom scrollbar for better aesthetics */
+        /* Works on Chrome, Safari, Edge */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e6fff7; /* Sky-light track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00a896; /* Sky-accent thumb */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #008f80; /* Darker accent on hover */
+        }
 
     </style>
 </head>
@@ -419,7 +438,7 @@
         let isSearchVisible = false;
         let isMobileMenuOpen = false; 
         
-        // NEW: Track the previous page for the back button on book details
+        // Track the previous page for the back button on book details
         let backButtonRoute = { page: 'books', id: null }; 
 
         // NEW STATE FOR TAG FILTERING
@@ -450,7 +469,7 @@
         const mayong1Description = "Mayong stirs where history’s bones lie closest to the skin of Assam—a haunted vestibule where time unspools and the shadows of dynasties thicken like monsoon clouds. In this first chapter of The Mayong Times, we descend into the heart of the Ahom Era, when kingdoms triumphed and faltered not only by the sword, but through clandestine pacts inked in blood and ash, half-remembered by priests and feared by princes. This chapter is offered not as a sterile chronicle, but as a living document—each segment a lantern swinging through corridors where the mundane collides with the monstrous, and where grief, vengeance, and hope tangle with the supernatural. Here, black-magic isn’t mere folklore: it is history’s secret mortar, binding descendants and sovereigns to creatures both terrifying and familiar—Baak, Jokhini, Bira, and Ghorapak—Mayong’s own impossible progeny and wardens.";
 
         // --- NEW BOOK DATA (Chapter 2) ---
-        const mayong2Description = "Chapter Two of The Mayong Times invites readers into the shadowed corridors of Assam’s Pre-Colonial era, a time when the threads of culture, magic, and conquest knotted inseparably. Here, the slow corrosion of sovereignty under the British is mirrored in the desperate preservation—and transformation—of Mayong’s mystical traditions. This section is less a linear narrative than a documentary mosaic, threading together real historical fragments with the haunted sinews of folklore, Tantric practice, and supernatural intervention. Within these pages, the infamous rituals of Mayong are both exposed and reimagined, elevated through literary darkness and philosophical rigor. The spirits—Jokhini’s mournful protection, Baak’s predatory enlightenment, Bira’s duality, and Ghorapak’s vengeance—emerge not only as mythic guardians but as living consequences of oppression, trauma, and resistance. Through the lens of psychological horror and ironic satire, Chapter Two explores the heartbreak and hope of a society fighting to define itself against the tide of colonial erasure.";
+        const mayong2Description = "Chapter Two of The Mayong Times invites readers into the shadowed corridors of Assam’s Pre-Colonial era, a time when the threads of culture, magic, and conquest knotted inseparably. Here, the slow corrosion of sovereignty under the British is mirrored in the desperate preservation—and transformation—of Mayong’s mystical traditions. This section is less a linear narrative than a documentary mosaic, threading together real historical fragments with the haunted sinews of folklore, Tantric practice, and supernatural intervention. Within these pages, the infamous rituals of Mayong are both exposed and reimagined, elevated through literary darkness and philosophical rigor. The spirits—Jokhini’s mournful protection, Baak’s predatory enlightenment, Bira’s duality, and Ghorapak’s vengeance—emerge not only as mythic guardians but as living consequences of oppression, trauma, and resistance. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above. Through the lens of psychological horror and ironic satire, Chapter Two explores the heartbreak and hope of a society fighting to define itself against the tide of colonial erasure.";
         const mayong2Genre = "Historical, Fictional, Traditional, Horror, Dark, Dark Humor";
         const mayong2Tags = "historical, revenge, safeguard, savior, supernatural, cult classic, black magic, rituals, rights, satire, sacrifice";
 
@@ -614,8 +633,8 @@
             pageCount: 19, 
             genre: "Historical, Fictional, Traditional, Horror, Dark Psychological, Dark Humor",
             tags: "historical, young adult fiction, black magic, rituals, witchcraft, cultural, savior, satire",
-            // SETTING STORE LINK TO '#inactive' TO DISPLAY ICON BUT DISABLE CLICKING
-            storeLink: '#inactive' 
+            // SETTING STORE LINK TO ACTIVE GOOGLE PLAY URL
+            storeLink: "https://play.google.com/store/books/details?id=_piUEQAAQBAJ" 
         },
         // --- NEW BOOK: The Mayong Times - Chapter Two (ID 13) - PAPERBACK VERSION ---
         {
@@ -1240,7 +1259,7 @@
             let backHandler;
             let ariaLabel;
 
-            if (backButtonRoute.page === 'series-detail' || backButtonRoute.page === 'series') {
+            if (backButtonRoute.page === 'series' || backButtonRoute.page === 'series-detail') {
                 // If the book was accessed via the series section, go back to Our Series.
                 backHandler = "navigate('series')";
                 ariaLabel = "Back to Our Series";
