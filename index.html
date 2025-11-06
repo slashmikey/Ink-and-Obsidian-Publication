@@ -1109,7 +1109,7 @@
             `;
         }
         
-        // --- RENDER SERIES LIST PAGE (Updated for interactive tiles) ---
+        // --- RENDER SERIES LIST PAGE (Updated for interactive tiles and CIRCULAR LOGOS) ---
         function renderSeriesList() {
             const seriesCards = seriesData.map(series => {
                 // Determine if a description exists
@@ -1122,12 +1122,14 @@
                          onclick="navigate('series-detail', '${series.id}')">
                         
                         <div class="flex flex-col items-center text-center h-full">
-                            <!-- Logo (Larger and centered) -->
-                            <img src="${series.seriesLogo}" 
-                                 alt="${series.title} Series Logo" 
-                                 class="w-32 h-32 object-contain rounded-lg shadow-lg mb-4 
-                                        transition duration-300 group-hover:shadow-sky-accent/50" 
-                                 onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=LOGO';" loading="lazy">
+                            <!-- Logo (Circular container added here) -->
+                            <div class="flex-shrink-0 w-32 h-32 mb-4 rounded-full border-2 border-sky-accent/50 overflow-hidden shadow-lg 
+                                        transition duration-300 group-hover:shadow-sky-accent/80 group-hover:border-sky-accent">
+                                <img src="${series.seriesLogo}" 
+                                     alt="${series.title} Series Logo" 
+                                     class="w-full h-full object-contain p-2" 
+                                     onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=LOGO';" loading="lazy">
+                            </div>
                             
                             <!-- Title -->
                             <h2 class="text-2xl font-extrabold mb-2 text-obsidian font-heading group-hover:text-sky-accent">
@@ -1160,7 +1162,7 @@
             `;
         }
 
-        // --- UPDATED: RENDER SERIES DETAIL PAGE (Added rich header and back button text) ---
+        // --- UPDATED: RENDER SERIES DETAIL PAGE (Circular Logo in Header) ---
         function renderSeriesDetail(seriesId) {
             const series = seriesData.find(s => s.id === seriesId);
             if (!series) return `<p class="text-center text-red-500">Series not found.</p>`;
@@ -1197,14 +1199,14 @@
                     <span class="ml-1 text-lg font-heading hidden sm:inline">All Series</span>
                 </button>
                 
-                <!-- Series Header / Details Card (Interactive Surface) -->
+                <!-- Series Header / Details Card (Circular Logo applied here) -->
                 <div class="bio-card bg-e6fff7 p-6 md:p-12 rounded-2xl shadow-2xl border-4 border-sky-accent/50 mb-10">
                     <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-                        <!-- Series Logo -->
-                        <div class="flex-shrink-0">
+                        <!-- Series Logo (Circular container) -->
+                        <div class="flex-shrink-0 w-32 h-32 rounded-full border-4 border-sky-accent overflow-hidden shadow-xl">
                             <img src="${series.seriesLogo}" 
                                  alt="${series.title} Series Logo" 
-                                 class="w-32 h-32 object-contain rounded-xl shadow-lg border border-gray-100" 
+                                 class="w-full h-full object-contain p-2" 
                                  onerror="this.onerror=null;this.src='https://placehold.co/128x128/1f2937/ffffff?text=Logo';">
                         </div>
                         
