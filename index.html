@@ -404,9 +404,6 @@
                 All works published on this site are the original creations of Ink & Obsidian Publications. Unauthorized reproduction is prohibited.
             </p>
             <!-- NEW SOCIAL HANDLES SECTION -->
-            <p class="text-xs text-gray-700 font-semibold mb-2">
-                Follow our Social Handles:
-            </p>
             <div class="flex justify-center space-x-4">
                 <!-- INSTAGRAM LINK -->
                 <a href='https://www.instagram.com/ink_obsidian_offcial/' target='_blank' rel='noopener noreferrer' aria-label="Instagram">
@@ -472,7 +469,9 @@
         const mayong2Description = "Chapter Two of The Mayong Times invites readers into the shadowed corridors of Assam’s Pre-Colonial era, a time when the threads of culture, magic, and conquest knotted inseparably. Here, the slow corrosion of sovereignty under the British is mirrored in the desperate preservation—and transformation—of Mayong’s mystical traditions. This section is less a linear narrative than a documentary mosaic, threading together real historical fragments with the haunted sinews of folklore, Tantric practice, and supernatural intervention. Within these pages, the infamous rituals of Mayong are both exposed and reimagined, elevated through literary darkness and philosophical rigor. The spirits—Jokhini’s mournful protection, Baak’s predatory enlightenment, Bira’s duality, and Ghorapak’s vengeance—emerge not only as mythic guardians but as living consequences of oppression, trauma, and resistance. Written with mature intensity and unapologetic realism, the book embraces explicit language, violence, sensuality, and despair—making it a harrowing experience designed exclusively for readers aged 18 and above. Through the lens of psychological horror and ironic satire, Chapter Two explores the heartbreak and hope of a society fighting to define itself against the tide of colonial erasure.";
         const mayong2Genre = "Historical, Fictional, Traditional, Horror, Dark, Dark Humor";
         const mayong2Tags = "historical, revenge, safeguard, savior, supernatural, cult classic, black magic, rituals, rights, satire, sacrifice";
-
+        
+        // --- NEW BOOK DATA (Chapter 3) ---
+        const mayong3Description = "Mayong has always existed in the liminal spaces where cartography fails—a geography that resists documentation, where ancient traditions persist not through preservation but through conscious evolution. This third chapter chronicles the Post-Colonial Era (1900s-1947), when India's violent birthing pains intersected with supernatural infrastructures older than the empires contesting dominion over them. What you are about to read is documentary reconstruction filtered through testimonies that official history dismissed as folkloric embellishment. The Baak, Jokhini, Ghorapak, and Bira are not metaphors for psychological trauma or political resistance—they are operational entities, engineered through tantric protocols that treated consciousness as primary material rather than emergent property.";
 
         const booksData = [{
             id: 1,
@@ -662,6 +661,32 @@
             tags: mayong2Tags,
             // UPDATING STORE LINK FOR BOOK ID 14
             storeLink: "https://play.google.com/store/books/details?id=bN-UEQAAQBAJ" 
+        },
+        // --- NEW BOOK: The Mayong Times - Chapter Three (ID 15) - PAPERBACK VERSION ---
+        {
+            id: 15,
+            title: "The Mayong Times-Chapter: Three (Paperback Version)",
+            coverUrl: "https://i.postimg.cc/9QXV7HMd/1.png",
+            pdfLink: "https://drive.google.com/uc?export=download&id=1JBgIRI-dHWQvA_TodqOUFuBH1qLoesv7",
+            description: mayong3Description,
+            placeholder: false,
+            pageCount: 52,
+            genre: "Historical, Fictional, Traditional, Horror, Dark, Dark Humor",
+            tags: "historical, revenge, safeguard, savior, supernatural, cult classic, black magic, rituals, rights, satire, sacrifice, magic",
+            storeLink: null // Paperback version
+        },
+        // --- NEW BOOK: The Mayong Times - Chapter Three (ID 16) - RTF VERSION (Digital) ---
+        {
+            id: 16,
+            title: "The Mayong Times-Chapter: Three (RTF Version)", 
+            coverUrl: "https://i.postimg.cc/wB7pw5D5/image.png",
+            pdfLink: "https://drive.google.com/uc?export=download&id=1c_JkOTIvG60xScW5eoG9365d-MkoeTUo",
+            description: mayong3Description,
+            placeholder: false,
+            pageCount: 42, 
+            genre: "Historical, Fictional, Traditional, Horror, Dark, Dark Humor",
+            tags: "historical, revenge, safeguard, savior, supernatural, cult classic, black magic, rituals, rights, satire, sacrifice, magic",
+            storeLink: '#inactive' // Non-paperback placeholder
         }
     ];
 
@@ -689,8 +714,9 @@
             id: 'mayong-times',
             title: 'The Mayong Times',
             seriesLogo: 'https://i.postimg.cc/cLmysb3P/The-Mayong-Times.png',
+            // ADDED BOOK ID 15 and 16 to the series
+            bookIds: [11, 12, 13, 14, 15, 16], 
             description: "The Mayong Times is a searing chronicle of Assam’s infamous black-magic heartland, Mayong—where history pulses with primal dread and every ritual is an invocation to forces both awe-inspiring and catastrophic. Across four tumultuous chapters, the series surges through eras swathed in betrayal, vengeance, and arcane lust: the regal Ahom dynasty, colonial devastation, liberation’s aftermath, and the feverish specter of modernity. Each chapter, split into cinematic segments, unleashes a torrent of visceral storytelling, emboldened by forgotten covenants and immortal guardians—Baak, Jokhini, Bira, and Ghorapak. Here, the haunted and the hopeful collide; grief and power breed legends that burn through generations. This is not history rendered docile, but narrative as incantation—crepuscular, subversive, and unforgettable. The Mayong Times pierces the marrow of Assam’s darkest traditions, daring the reader to witness magic’s triumphs—and its staggering costs—with eyes unflinching and heart laid bare.",
-            bookIds: [11, 12, 13, 14], // UPDATED to include Chapter Two (RTF, ID 14)
         }
     ];
 
